@@ -9,51 +9,30 @@
 
 /* Main Cyber Theme - Modern Purple Teamer / Neo Blue Dashboard */
 :root {
-  /* Core Cyber Colors - Purple Teamer Theme */
-  --matrix-green: #00E5FF;        /* Neon Cyan (primary accent) */
-  --terminal-bg: #0a0a0f;         /* Deeper dark background */
-  --terminal-text: #E6EDF3;       /* Soft white text for readability */
-  --terminal-border: #1a1f35;     /* Dark purple-blue border */
-  --hacker-red: #FF4D6A;          /* Softer red for contrast */
-  --cyber-red: #FF6B8A;           /* Soft coral red */
-  --cyber-purple: #A855F7;        /* Vivid purple */
-  --cyber-blue: #38BDF8;          /* Sky blue */
-  --cyber-yellow: #FBBF24;        /* Warm amber */
-  --networking-green: #34D399;    /* Emerald green */
-  --forensics-yellow: #FCD34D;    /* Soft gold */
-  --malware-purple: #8B5CF6;      /* Medium purple */
-  --social-orange: #FB923C;       /* Soft orange */
-  --neon-cyan: #22D3EE;           /* Cyan */
-  --neon-pink: #EC4899;           /* Pink */
-  --dark-purple: #0f0a1e;         /* Deep purple for gradients */
-  
-  /* New dashboard colors */
-  --primary-accent: #A855F7;      /* Main purple accent */
-  --secondary-accent: #38BDF8;    /* Blue accent */
-  --tertiary-accent: #22D3EE;     /* Cyan accent */
-  --surface-1: #12121a;           /* Card background - darker */
-  --surface-2: #1a1a24;           /* Elevated surface */
-  --surface-3: #2a2a3a;           /* Border color */
-  --gradient-purple: linear-gradient(135deg, #A855F7 0%, #6366F1 100%);
-  --gradient-blue: linear-gradient(135deg, #38BDF8 0%, #22D3EE 100%);
-  --gradient-mixed: linear-gradient(135deg, #A855F7 0%, #38BDF8 50%, #22D3EE 100%);
-  --gradient-rainbow: linear-gradient(90deg, #A855F7, #EC4899, #38BDF8, #22D3EE, #34D399, #A855F7);
-  --gradient-neon: linear-gradient(135deg, #A855F7 0%, #EC4899 25%, #38BDF8 50%, #22D3EE 75%, #34D399 100%);
+  /* Core Cyber Colors */
+  --matrix-green: #00BFA5; /* Vibrant Lime Green */
+  --terminal-bg: #1A1A1A;        /* Rich charcoal background */
+  --terminal-text: #F0F0F0;      /* Off-white text for readability */
+  --terminal-border: #003300; /* Dark Green */
+  --hacker-red: #a10d1e; /* Bright Red */
+  --cyber-red: #FF003C; /* Vivid Red */
+  --cyber-purple: #BC13FE; /* Electric Purple */
+  --cyber-blue: #1E90FF; /* Bright Blue */
+  --cyber-yellow: #FFEB3B; /* Neon Yellow */
+  --networking-green: #00FF00; /* Vibrant Lime Green */
+  --forensics-yellow: #CCCC00; /* Muted Yellow */
+  --malware-purple: #800080; /* Classic Purple */
+  --social-orange: #FF5722; /* Bright Orange */
+  --neon-cyan: #1DE9B6; /* Neon Cyan */  
 
+  
   /* UI Elements */
-  --dark-layer: rgba(10, 10, 15, 0.9);
-  --cyber-box-shadow: 0 0 30px rgba(168, 85, 247, 0.4), 0 0 60px rgba(56, 189, 248, 0.2), 0 0 90px rgba(34, 211, 238, 0.1);
+  --dark-layer: rgba(0, 20, 0, 0.3);
+  --cyber-box-shadow: 0 0 15px rgba(32, 194, 14, 0.5);
   --cyber-gradient: linear-gradient(90deg, 
-    rgba(168, 85, 247, 0) 0%, 
-    rgba(168, 85, 247, 0.3) 50%, 
-    rgba(168, 85, 247, 0) 100%);
-  --glass-bg: rgba(18, 18, 26, 0.95);
-  --glass-blur: blur(20px);
-  --glow-green: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan), 0 0 40px rgba(34, 211, 238, 0.6);
-  --glow-red: 0 0 10px var(--cyber-red), 0 0 25px rgba(255, 107, 138, 0.6);
-  --glow-cyan: 0 0 15px var(--neon-cyan), 0 0 30px var(--neon-cyan);
-  --glow-purple: 0 0 15px var(--cyber-purple), 0 0 30px rgba(168, 85, 247, 0.6);
-  --glow-pink: 0 0 15px var(--neon-pink), 0 0 30px rgba(236, 72, 153, 0.6);
+    rgba(255, 0, 60, 0) 0%, 
+    rgba(255, 0, 60, 0.3) 50%, 
+    rgba(255, 0, 60, 0) 100%); 
 }
 
 /* ===== GLOBAL SCROLL BEHAVIOR ===== */
@@ -1521,3 +1500,4 @@ a, button, .clickable, .cyber-button, .nav-link, .social-icon {
     border-right: none;
   }
 }
+
