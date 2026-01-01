@@ -1,78 +1,36 @@
-/* ===== CYBER CARD BASE - Enhanced with glassmorphism ===== */
+/* ===== CYBER CARD BASE ===== */
 .cyber-card {
-  background: linear-gradient(135deg, rgba(18, 18, 26, 0.95) 0%, rgba(26, 26, 36, 0.9) 100%);
-  border: 1px solid rgba(168, 85, 247, 0.2);
-  border-radius: 16px;
+  background: var(--dark-layer);
+  border: 1px solid var(--matrix-green);
+  border-radius: 4px;
   padding: 2rem;
   margin: 2rem 0;
   position: relative;
   overflow: hidden;
-  box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.4),
-    inset 0 0 80px rgba(168, 85, 247, 0.02);
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  box-shadow: var(--cyber-box-shadow);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
 }
 
 .cyber-card:hover {
-  transform: translateY(-12px) scale(1.01);
-  box-shadow: 
-    0 20px 50px rgba(168, 85, 247, 0.35),
-    0 0 80px rgba(56, 189, 248, 0.15),
-    inset 0 0 100px rgba(168, 85, 247, 0.03);
-  border-color: var(--cyber-purple);
+  transform: translateY(-5px);
+  box-shadow: 0 0 25px var(--matrix-green);
 }
 
-/* Animated gradient border on top */
 .cyber-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: var(--gradient-rainbow);
-  background-size: 300% 100%;
-  animation: gradient-border 4s ease infinite;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.5s ease;
-}
-
-.cyber-card:hover::before {
-  transform: scaleX(1);
-}
-
-/* Sweep effect */
-.cyber-card::after {
   content: '';
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.08), transparent);
-  transition: left 0.8s ease;
-  pointer-events: none;
+  background: var(--cyber-gradient);
+  opacity: 0.1;
+  animation: scan 6s infinite linear;
 }
 
-.cyber-card:hover::after {
-  left: 100%;
-}
+/* ===== PROJECT CARDS ===== */
 
-@keyframes gradient-border {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-@keyframes scan {
-  0% { left: -100%; }
-  100% { left: 100%; }
-}
-
-/* ===== PROJECT CARDS - Enhanced ===== */
 .project-header {
   display: flex;
   justify-content: space-between;
@@ -80,75 +38,91 @@
   margin-top: 1rem;
   margin-bottom: 1.5rem;
   padding-bottom: 1rem;
-  border-top: 3px solid var(--cyber-purple);
-  border-bottom: 1px dashed rgba(168, 85, 247, 0.3);
-  position: relative;
-}
-
-.project-header::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100px;
-  height: 3px;
-  background: var(--gradient-mixed);
-  box-shadow: var(--glow-purple);
+  border-top: 2px solid var(--matrix-green);;
+  border-bottom: 1px dashed var(--neon-cyan);
 }
 
 .project-tags {
   display: flex;
-  gap: 0.6rem;
+  gap: 0.5rem;
   margin: 1rem 0;
-  flex-wrap: wrap;
+}
+
+/* ===== CERTIFICATION CARDS ===== */
+.cert-card {
+  border: 1px solid var(--matrix-green);
+  text-align: center;
+  padding: 15px;
+}
+
+.cert-badge {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: white;
+  position: relative;
+  background: rgba(188, 19, 254, 0.2);
+  border: 2px solid var(--cyber-purple);
+}
+
+.cert-badge::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border-radius: 50%;
+  z-index: -1;
+  animation: pulse 2s infinite;
+}
+
+.cert-badge.oscp::before {
+  background: rgba(255, 0, 60, 0.4);
+}
+
+.cert-badge.reverse::before {
+  background: rgba(0, 255, 157, 0.4);
 }
 
 /* ===== BIO CARD ===== */
 .bio-card {
   display: flex;
-  gap: 2.5rem;
+  gap: 2rem;
   align-items: center;
 }
 
 .bio-image {
-  width: 280px;
-  height: 280px;
-  border: 3px solid transparent;
+  width: 250px;
+  height: 250px;
+  border: 3px solid var(--matrix-green);
   border-radius: 50%;
   overflow: hidden;
   position: relative;
   flex-shrink: 0;
-  background: var(--gradient-mixed);
-  padding: 4px;
 }
 
 .bio-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 50%;
-  transition: all 0.5s ease;
-}
-
-.bio-image:hover img {
-  transform: scale(1.08);
-  filter: brightness(1.1) saturate(1.2);
 }
 
 .status-indicator {
   position: absolute;
   bottom: 20px;
   right: 20px;
-  width: 20px;
-  height: 20px;
-  background-color: var(--networking-green);
+  width: 15px;
+  height: 15px;
+  background-color: var(--matrix-green);
   border-radius: 50%;
-  box-shadow: 
-    0 0 10px var(--networking-green),
-    0 0 20px var(--networking-green),
-    0 0 30px rgba(52, 211, 153, 0.5);
-  animation: pulse-glow 2s ease-in-out infinite;
-  border: 3px solid var(--surface-1);
+  box-shadow: 0 0 10px var(--matrix-green);
+  animation: pulse 2s infinite;
 }
 
 /* ===== RESPONSIVE ADJUSTMENTS ===== */
@@ -160,222 +134,69 @@
   
   .bio-image {
     margin-bottom: 1.5rem;
-    width: 220px;
-    height: 220px;
   }
 }
 
-/* ===== TAGS - Enhanced with glow ===== */
+/* ===== TAGS ===== */
 .cyber-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.6rem;
-  margin-top: 1.5rem;
+  gap: 0.5rem;
+  margin-top: 1rem;
 }
 
 .tag {
-  padding: 0.5rem 1.2rem;
-  border-radius: 25px;
-  font-size: 0.85rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
   font-weight: bold;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-}
-
-.tag::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-  transition: left 0.5s ease;
-}
-
-.tag:hover::before {
-  left: 100%;
-}
-
-.tag:hover {
-  transform: scale(1.1) translateY(-3px);
 }
 
 .tag.offensive {
-  background: rgba(255, 77, 106, 0.2);
-  border: 1px solid var(--hacker-red);
-  color: var(--hacker-red);
-}
-
-.tag.offensive:hover {
-  box-shadow: 0 0 20px rgba(255, 77, 106, 0.5);
+  background: rgba(255, 1, 60, 0.2);
+  border: 1px solid var(--cyber-red);
+  color: var(--cyber-red);
 }
 
 .tag.defensive {
-  background: rgba(56, 189, 248, 0.2);
+  background: rgba(0, 102, 255, 0.2);
   border: 1px solid var(--cyber-blue);
   color: var(--cyber-blue);
 }
 
-.tag.defensive:hover {
-  box-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
-}
-
 .tag.development {
-  background: rgba(168, 85, 247, 0.2);
+  background: rgba(188, 19, 254, 0.2);
   border: 1px solid var(--cyber-purple);
   color: var(--cyber-purple);
 }
 
-.tag.development:hover {
-  box-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
-}
-
 .tag.network {
-  background: rgba(34, 211, 238, 0.2);
+  background: rgba(0, 255, 170, 0.2);
   border: 1px solid var(--neon-cyan);
   color: var(--neon-cyan);
 }
 
-.tag.network:hover {
-  box-shadow: 0 0 20px rgba(34, 211, 238, 0.5);
-}
-
 .tag.forensics {
-  background: rgba(251, 191, 36, 0.2);
+  background: rgba(255, 255, 0, 0.2);
   border: 1px solid var(--cyber-yellow);
   color: var(--cyber-yellow);
 }
 
-.tag.forensics:hover {
-  box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
-}
-
 .tag.red {
-  background: rgba(255, 77, 106, 0.2);
+  background: rgba(255, 0, 60, 0.2);
   border: 1px solid var(--hacker-red);
   color: var(--hacker-red);
 }
 
-.tag.red:hover {
-  box-shadow: 0 0 20px rgba(255, 77, 106, 0.5);
-}
-
 .tag.blue {
-  background: rgba(56, 189, 248, 0.2);
+  background: rgba(0, 102, 255, 0.2);
   border: 1px solid var(--cyber-blue);
   color: var(--cyber-blue);
 }
 
-.tag.blue:hover {
-  box-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
-}
-
 .tag.purple {
-  background: rgba(168, 85, 247, 0.2);
+  background: rgba(188, 19, 254, 0.2);
   border: 1px solid var(--cyber-purple);
   color: var(--cyber-purple);
 }
 
-.tag.purple:hover {
-  box-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
-}
-
-/* ===== CYBER BUTTON - Enhanced ===== */
-.cyber-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.8rem 1.8rem;
-  background: linear-gradient(135deg, rgba(18, 18, 26, 0.95) 0%, rgba(26, 26, 36, 0.9) 100%);
-  border: 2px solid var(--cyber-purple);
-  color: var(--cyber-purple);
-  text-decoration: none;
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.95rem;
-  border-radius: 12px;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-}
-
-.cyber-button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.3), transparent);
-  transition: left 0.6s ease;
-}
-
-.cyber-button:hover::before {
-  left: 100%;
-}
-
-.cyber-button:hover {
-  background: var(--gradient-purple);
-  color: white;
-  box-shadow: 
-    0 0 30px rgba(168, 85, 247, 0.5),
-    0 10px 30px rgba(168, 85, 247, 0.3);
-  transform: translateY(-5px) scale(1.02);
-  border-color: transparent;
-}
-
-.cyber-button i {
-  font-size: 1rem;
-  transition: transform 0.3s ease;
-}
-
-.cyber-button:hover i {
-  transform: translateX(3px);
-}
-
-.cyber-button.small {
-  padding: 0.6rem 1.2rem;
-  font-size: 0.85rem;
-}
-
-.cyber-button-download {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.7rem 1.4rem;
-  background: transparent;
-  border: 2px solid var(--neon-cyan);
-  color: var(--neon-cyan);
-  text-decoration: none;
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.9rem;
-  border-radius: 12px;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  margin-top: 1rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.cyber-button-download::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.2), transparent);
-  transition: left 0.5s ease;
-}
-
-.cyber-button-download:hover::before {
-  left: 100%;
-}
-
-.cyber-button-download:hover {
-  background: rgba(34, 211, 238, 0.2);
-  box-shadow: 
-    0 0 25px rgba(34, 211, 238, 0.4),
-    0 8px 25px rgba(34, 211, 238, 0.2);
-  transform: translateY(-4px);
-}
