@@ -1,0 +1,38 @@
+---
+interface Props {
+  category: string;
+}
+
+const { category } = Astro.props;
+
+const colorMap: Record<string, string> = {
+  'Offensive Security': '#ff6b6b',
+  'Defensive Security': '#4dabf7',
+  'Development': '#51cf66',
+  'Research': '#ff922b',
+  'Tutorial': '#a78bfa',
+  'SOC': '#4dabf7',
+  'Learning': '#00d4ff',
+  'Achievement': '#f59e0b',
+  'CTF Writeup': '#ff6b6b',
+};
+
+const color = colorMap[category] || '#00ff9f';
+---
+
+<span class="category-badge" style={`--badge-color: ${color}`}>
+  {category}
+</span>
+
+<style>
+  .category-badge {
+    display: inline-block;
+    background: color-mix(in srgb, var(--badge-color) 15%, transparent);
+    color: var(--badge-color);
+    padding: 0.25rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border: 1px solid color-mix(in srgb, var(--badge-color) 30%, transparent);
+  }
+</style>
