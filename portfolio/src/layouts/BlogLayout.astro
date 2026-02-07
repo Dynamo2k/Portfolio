@@ -1,0 +1,59 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import ResumeDownload from '../components/ResumeDownload.astro';
+
+interface Props {
+  title: string;
+  date: string;
+  readTime: string;
+  category: string;
+  author?: string;
+}
+
+const { title, date, readTime, category, author = 'Rana Uzair Ahmad' } = Astro.props;
+---
+
+<BaseLayout title={title} description={title}>
+  <article class="pt-24 pb-16">
+    <div class="container-custom max-w-3xl mx-auto">
+      <!-- Article Header -->
+      <header class="mb-12">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="tag bg-accent-primary/10 text-accent-primary">{category}</span>
+          <span class="text-text-muted text-sm">{readTime}</span>
+        </div>
+        <h1 class="text-3xl md:text-4xl font-bold text-text-primary mb-4">{title}</h1>
+        <div class="flex items-center gap-4 text-text-secondary text-sm">
+          <span>By {author}</span>
+          <span>•</span>
+          <time datetime={date}>{date}</time>
+        </div>
+      </header>
+
+      <!-- Article Content -->
+      <div class="prose prose-invert prose-lg max-w-none
+        prose-headings:text-text-primary prose-headings:font-semibold
+        prose-p:text-text-secondary prose-p:leading-relaxed
+        prose-a:text-accent-primary prose-a:no-underline hover:prose-a:underline
+        prose-strong:text-text-primary
+        prose-code:text-accent-primary prose-code:bg-bg-elevated prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-code:font-mono
+        prose-pre:bg-bg-secondary prose-pre:border prose-pre:border-accent-primary/10 prose-pre:rounded-xl
+        prose-li:text-text-secondary
+        prose-blockquote:border-accent-primary prose-blockquote:text-text-secondary
+        prose-img:rounded-xl
+        prose-hr:border-accent-primary/20
+      ">
+        <slot />
+      </div>
+
+      <!-- Post Footer -->
+      <footer class="mt-12 pt-8 border-t border-accent-primary/10">
+        <div class="card text-center">
+          <p class="text-text-primary font-semibold mb-2">Want to hire me?</p>
+          <p class="text-text-secondary text-sm mb-4">Download my resume to learn more about my experience.</p>
+          <ResumeDownload variant="primary" />
+        </div>
+      </footer>
+    </div>
+  </article>
+</BaseLayout>

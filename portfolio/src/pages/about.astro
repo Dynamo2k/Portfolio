@@ -1,0 +1,141 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Timeline from '../components/Timeline.astro';
+import SkillCategory from '../components/SkillCategory.astro';
+import CertificationBadge from '../components/CertificationBadge.astro';
+import ResumeDownload from '../components/ResumeDownload.astro';
+import { EXPERIENCE, SKILLS, CERTIFICATIONS, CTF_ACHIEVEMENTS, COMPETITION_WINS } from '../utils/constants';
+---
+
+<BaseLayout title="About" description="Learn about Rana Uzair Ahmad - Cybersecurity Engineer, SOC Analyst, and Penetration Tester">
+  <section class="pt-24 pb-16">
+    <div class="container-custom">
+      <!-- Header -->
+      <div class="max-w-3xl mx-auto text-center mb-16">
+        <h1 class="text-4xl md:text-5xl font-bold text-text-primary mb-4">Rana Uzair Ahmad</h1>
+        <p class="text-xl text-accent-primary font-semibold mb-6">
+          Cybersecurity Engineer | SOC Analyst | Penetration Tester
+        </p>
+        <ResumeDownload variant="primary" />
+      </div>
+
+      <!-- Professional Summary -->
+      <div class="max-w-3xl mx-auto mb-16 space-y-4">
+        <h2 class="text-2xl font-bold text-text-primary mb-6">Professional Summary</h2>
+        <p class="text-text-secondary leading-relaxed">
+          I'm a cybersecurity professional specializing in offensive security and threat analysis.
+          Currently serving as a SOC Analyst at the National Center of Cyber Security, I monitor
+          and respond to security incidents, analyze threat patterns, and develop custom detection
+          rules for SIEM platforms including Wazuh and Splunk.
+        </p>
+        <p class="text-text-secondary leading-relaxed">
+          In my role as Penetration Tester at ZeroxInnovation, I conduct vulnerability assessments,
+          perform ethical hacking engagements, and help organizations identify security weaknesses
+          before malicious actors can exploit them. My work has contributed to securing critical
+          infrastructure and preventing potential breaches.
+        </p>
+        <p class="text-text-secondary leading-relaxed">
+          Beyond my professional roles, I'm passionate about security research and tool development.
+          I've created 34+ open-source security tools including NetSnoop (packet analyzer), CortexCLI
+          (AI-powered security shell), and SSHield (SSH security toolkit). I'm also an active CTF
+          competitor, ranking in the top 4% globally on TryHackMe and top 900 on HackTheBox.
+        </p>
+        <p class="text-text-secondary leading-relaxed">
+          I believe in continuous learning and community contribution. Through my blog and open-source
+          work, I share knowledge and help others in the cybersecurity community grow their skills.
+        </p>
+      </div>
+
+      <!-- Experience Timeline -->
+      <div class="mb-16">
+        <h2 class="text-2xl font-bold text-text-primary mb-8 text-center">Professional Experience</h2>
+        <div class="max-w-3xl mx-auto">
+          <Timeline items={EXPERIENCE} />
+        </div>
+      </div>
+
+      <!-- Skills -->
+      <div class="mb-16">
+        <h2 class="text-2xl font-bold text-text-primary mb-8 text-center">Skills & Expertise</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <SkillCategory title={SKILLS.offensive.title} items={SKILLS.offensive.items} />
+          <SkillCategory title={SKILLS.defensive.title} items={SKILLS.defensive.items} />
+          <SkillCategory title={SKILLS.tools.title} items={SKILLS.tools.items} />
+          <SkillCategory title={SKILLS.programming.title} items={SKILLS.programming.items} />
+          <SkillCategory title={SKILLS.frameworks.title} items={SKILLS.frameworks.items} />
+          <SkillCategory title={SKILLS.os.title} items={SKILLS.os.items} />
+        </div>
+      </div>
+
+      <!-- CTF Achievements -->
+      <div class="mb-16">
+        <h2 class="text-2xl font-bold text-text-primary mb-8 text-center">CTF & Competition Achievements</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          {CTF_ACHIEVEMENTS.map((achievement) => (
+            <div class="card text-center">
+              <div class="text-3xl font-bold text-accent-primary mb-2">{achievement.achievement}</div>
+              <h3 class="text-lg font-semibold text-text-primary mb-1">{achievement.platform}</h3>
+              <p class="text-text-secondary text-sm mb-3">{achievement.details}</p>
+              <a
+                href={achievement.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-sm text-accent-primary no-underline hover:underline"
+              >
+                View Profile →
+              </a>
+            </div>
+          ))}
+        </div>
+        <div class="max-w-lg mx-auto">
+          <h3 class="text-lg font-semibold text-text-primary mb-4 text-center">Competition Wins</h3>
+          <div class="space-y-3">
+            {COMPETITION_WINS.map((win) => (
+              <div class="flex items-center gap-3 text-text-secondary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-warning flex-shrink-0" aria-hidden="true">
+                  <circle cx="12" cy="8" r="7"></circle>
+                  <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                </svg>
+                <span>{win}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- Certifications -->
+      <div class="mb-16" id="certifications">
+        <h2 class="text-2xl font-bold text-text-primary mb-8 text-center">Certifications</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {CERTIFICATIONS.map((cert) => (
+            <CertificationBadge name={cert.name} year={cert.year} file={cert.file} />
+          ))}
+        </div>
+      </div>
+
+      <!-- Current Learning -->
+      <div class="mb-16">
+        <h2 class="text-2xl font-bold text-text-primary mb-8 text-center">Current Learning & Research</h2>
+        <div class="max-w-2xl mx-auto">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {['Advanced malware analysis techniques', 'Cloud security (AWS/Azure)', 'Rust programming for security tools', 'AI/ML in cybersecurity', 'Red team tactics and techniques'].map((item) => (
+              <div class="flex items-center gap-3 text-text-secondary">
+                <span class="text-accent-primary" aria-hidden="true">▸</span>
+                <span>{item}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- Resume Download -->
+      <div class="text-center">
+        <div class="card max-w-lg mx-auto text-center">
+          <h2 class="text-xl font-bold text-text-primary mb-2">Want to know more about my experience?</h2>
+          <p class="text-text-secondary text-sm mb-4">PDF format, ATS-friendly. Last updated: February 2026</p>
+          <ResumeDownload variant="large" />
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

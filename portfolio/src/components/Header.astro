@@ -1,0 +1,133 @@
+---
+import { NAV_LINKS, SITE } from '../utils/constants';
+import ResumeDownload from './ResumeDownload.astro';
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="site-header">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <nav class="container-custom flex items-center justify-between py-4" aria-label="Main navigation">
+    <a href="/" class="text-xl font-bold text-text-primary no-underline hover:text-accent-primary transition-colors">
+      Rana Uzair<span class="text-accent-primary">.</span>
+    </a>
+
+    <div class="hidden md:flex items-center gap-6">
+      {NAV_LINKS.map((link) => (
+        <a
+          href={link.href}
+          class:list={[
+            'text-sm font-medium no-underline transition-colors',
+            currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href))
+              ? 'text-accent-primary'
+              : 'text-text-secondary hover:text-text-primary',
+          ]}
+        >
+          {link.label}
+        </a>
+      ))}
+      <ResumeDownload variant="primary" />
+    </div>
+
+    <button
+      class="md:hidden text-text-primary p-2"
+      id="mobile-menu-btn"
+      aria-label="Open navigation menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div
+    id="mobile-menu"
+    class="hidden md:hidden fixed inset-0 top-0 bg-bg-primary/95 backdrop-blur-md z-50"
+    role="dialog"
+    aria-label="Mobile navigation"
+  >
+    <div class="flex flex-col h-full p-6">
+      <div class="flex justify-between items-center mb-8">
+        <a href="/" class="text-xl font-bold text-text-primary no-underline">
+          Rana Uzair<span class="text-accent-primary">.</span>
+        </a>
+        <button
+          class="text-text-primary p-2"
+          id="mobile-menu-close"
+          aria-label="Close navigation menu"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="flex flex-col gap-4">
+        {NAV_LINKS.map((link) => (
+          <a
+            href={link.href}
+            class:list={[
+              'text-lg font-medium no-underline py-2 transition-colors',
+              currentPath === link.href
+                ? 'text-accent-primary'
+                : 'text-text-secondary hover:text-text-primary',
+            ]}
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
+      <div class="mt-8">
+        <ResumeDownload variant="large" />
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  const header = document.getElementById('site-header');
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenuClose = document.getElementById('mobile-menu-close');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  // Sticky header with blur
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      header?.classList.add('bg-bg-primary/90', 'backdrop-blur-md', 'shadow-lg');
+    } else {
+      header?.classList.remove('bg-bg-primary/90', 'backdrop-blur-md', 'shadow-lg');
+    }
+  });
+
+  // Mobile menu toggle
+  mobileMenuBtn?.addEventListener('click', () => {
+    mobileMenu?.classList.remove('hidden');
+    mobileMenuBtn.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  });
+
+  const closeMenu = () => {
+    mobileMenu?.classList.add('hidden');
+    mobileMenuBtn?.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  };
+
+  mobileMenuClose?.addEventListener('click', closeMenu);
+
+  // Close on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !mobileMenu?.classList.contains('hidden')) {
+      closeMenu();
+    }
+  });
+
+  // Close on link click
+  mobileMenu?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', closeMenu);
+  });
+</script>

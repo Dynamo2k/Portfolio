@@ -1,0 +1,189 @@
+---
+import BlogLayout from '../../layouts/BlogLayout.astro';
+---
+
+<BlogLayout
+  title="MITRE ATT&CK Framework: Practical Guide for SOC Analysts"
+  date="December 20, 2025"
+  readTime="10 min read"
+  category="Technical Guide"
+>
+
+## Understanding MITRE ATT&CK
+
+The MITRE ATT&CK (Adversarial Tactics, Techniques, and Common Knowledge) framework is one of the most valuable resources for security professionals. It provides a comprehensive knowledge base of adversary tactics and techniques based on real-world observations.
+
+As a SOC Analyst at the National Center of Cyber Security, I use ATT&CK daily for threat detection, incident analysis, and building detection rules. In this guide, I'll share practical approaches to leveraging ATT&CK in SOC operations.
+
+## The ATT&CK Matrix Structure
+
+The framework is organized into three main components:
+
+1. **Tactics** — The adversary's tactical goals (the "why")
+2. **Techniques** — How the adversary achieves those goals (the "how")
+3. **Procedures** — Specific implementations by threat actors
+
+### Key Tactics
+
+| Tactic | Description | Example |
+|--------|-------------|---------|
+| Initial Access | Gaining entry to the network | Phishing, exploiting public-facing apps |
+| Execution | Running malicious code | PowerShell, command-line scripts |
+| Persistence | Maintaining access | Registry run keys, scheduled tasks |
+| Privilege Escalation | Gaining higher permissions | Token manipulation, exploitation |
+| Defense Evasion | Avoiding detection | Obfuscation, disabling security tools |
+| Credential Access | Stealing credentials | Keylogging, credential dumping |
+| Discovery | Understanding the environment | Network scanning, file enumeration |
+| Lateral Movement | Moving through the network | RDP, SMB, pass-the-hash |
+| Exfiltration | Stealing data | Encrypted channels, cloud storage |
+| Impact | Disrupting operations | Ransomware, data destruction |
+
+## How I Use ATT&CK in SOC Work
+
+### 1. Threat Detection
+
+Every detection rule I write maps to at least one ATT&CK technique. This ensures comprehensive coverage and helps identify gaps:
+
+```yaml
+# Example Wazuh rule mapped to ATT&CK
+# Technique: T1059.001 (PowerShell)
+# Tactic: Execution
+
+rule:
+  id: 100100
+  level: 12
+  description: "Suspicious PowerShell execution detected"
+  mitre:
+    tactic: Execution
+    id: T1059.001
+    technique: "Command and Scripting Interpreter: PowerShell"
+  match:
+    - "powershell.exe -encodedcommand"
+    - "powershell.exe -enc"
+    - "powershell.exe -e "
+```
+
+### 2. Incident Analysis
+
+When analyzing an incident, I map observed activities to ATT&CK techniques to build a complete picture of the attack:
+
+```
+Incident Timeline (ATT&CK Mapped):
+
+1. T1566.001 (Phishing: Spear-phishing Attachment)
+   → User opened malicious PDF attachment
+
+2. T1059.001 (PowerShell)
+   → Payload executed via PowerShell
+
+3. T1547.001 (Registry Run Keys)
+   → Persistence established via registry modification
+
+4. T1003.001 (LSASS Memory)
+   → Credential dumping via Mimikatz
+
+5. T1021.001 (Remote Desktop Protocol)
+   → Lateral movement to server via RDP
+
+6. T1048.003 (Exfiltration Over Unencrypted Protocol)
+   → Data exfiltrated via HTTP
+```
+
+### 3. Gap Analysis
+
+I regularly compare our detection coverage against the ATT&CK matrix to identify blind spots:
+
+```
+Coverage Analysis Example:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Tactic              Coverage
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Initial Access       85%
+Execution            90%
+Persistence          75% ← Gap identified
+Privilege Esc.       70% ← Gap identified
+Defense Evasion      60% ← Priority gap
+Credential Access    80%
+Lateral Movement     65% ← Gap identified
+Exfiltration         55% ← Priority gap
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+## Integration with SIEM Platforms
+
+### Wazuh Integration
+
+Wazuh natively supports MITRE ATT&CK mapping in its rule engine:
+
+```xml
+<rule id="100200" level="10">
+  <if_sid>60106</if_sid>
+  <field name="win.eventdata.commandLine">
+    certutil\.exe.*-urlcache
+  </field>
+  <description>Certutil used for file download (T1105)</description>
+  <mitre>
+    <id>T1105</id>
+  </mitre>
+</rule>
+```
+
+### Splunk Integration
+
+In Splunk, I use the Enterprise Security framework with ATT&CK annotations:
+
+```spl
+| tstats count FROM datamodel=Endpoint.Processes
+  WHERE Processes.process_name="powershell.exe"
+  BY Processes.process_name Processes.process
+| lookup mitre_attack_lookup technique_id AS process_technique
+| table _time process_name technique_name tactic
+```
+
+## Threat Hunting with ATT&CK
+
+ATT&CK-based threat hunting follows a hypothesis-driven approach:
+
+1. **Select a technique** — e.g., T1003 (OS Credential Dumping)
+2. **Form a hypothesis** — "An adversary may be dumping credentials via LSASS"
+3. **Identify data sources** — Process creation logs, Sysmon events
+4. **Build queries** — Search for indicators of the technique
+5. **Analyze results** — Investigate any suspicious findings
+6. **Document findings** — Update detection rules and playbooks
+
+### Example Hunt Query
+
+```spl
+# Hunting for LSASS memory access (T1003.001)
+index=sysmon EventCode=10 TargetImage="*lsass.exe"
+| stats count by SourceImage, SourceUser
+| where count > 1
+| sort - count
+```
+
+## Real-world Application
+
+In my daily SOC work, I recently used ATT&CK to analyze a suspected intrusion:
+
+1. Alert triggered on unusual PowerShell activity (T1059.001)
+2. Investigation revealed encoded commands downloading additional payloads (T1105)
+3. Persistence mechanism found via scheduled task (T1053.005)
+4. Network analysis showed C2 communication over HTTPS (T1071.001)
+5. Full ATT&CK mapping provided to management for threat briefing
+
+This structured approach helped communicate the severity and scope of the threat effectively.
+
+## Conclusion
+
+The MITRE ATT&CK framework is not just a theoretical reference — it's a practical tool that enhances every aspect of SOC operations. By mapping detections, analyzing incidents, and hunting for threats through the lens of ATT&CK, security teams can achieve more comprehensive and systematic defense.
+
+I recommend every SOC analyst to invest time in understanding ATT&CK deeply. It will transform how you approach threat detection and incident response.
+
+## Resources
+
+- [MITRE ATT&CK Official Website](https://attack.mitre.org)
+- [ATT&CK Navigator](https://mitre-attack.github.io/attack-navigator)
+- [Atomic Red Team](https://github.com/redcanaryco/atomic-red-team) — Test ATT&CK techniques
+- [Sigma Rules](https://github.com/SigmaHQ/sigma) — Generic signature format mapped to ATT&CK
+
+</BlogLayout>

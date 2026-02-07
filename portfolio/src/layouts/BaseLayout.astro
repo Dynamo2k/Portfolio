@@ -1,0 +1,75 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE } from '../utils/constants';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+const pageTitle = title ? `${title} | ${SITE.title}` : `${SITE.title} | ${SITE.headline}`;
+const pageDescription = description || SITE.description;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={pageDescription} />
+    <meta name="keywords" content="cybersecurity, penetration testing, SOC analyst, security engineer, ethical hacking, SIEM, Wazuh, Splunk" />
+    <meta name="author" content={SITE.author} />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={SITE.url} />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <title>{pageTitle}</title>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Rana Uzair Ahmad",
+      "jobTitle": "Cybersecurity Engineer | SOC Analyst | Penetration Tester",
+      "description": "Cybersecurity professional specializing in SOC operations and penetration testing",
+      "url": SITE.url,
+      "sameAs": [
+        "https://github.com/Dynamo2k1",
+        "https://linkedin.com/in/rana-uzair-ahmad-82b8b6223",
+        "https://tryhackme.com/p/Dynamo2k1",
+        "https://dynamo2k1.github.io"
+      ],
+      "worksFor": [
+        { "@type": "Organization", "name": "ZeroxInnovation" },
+        { "@type": "Organization", "name": "National Center of Cyber Security" }
+      ],
+      "alumniOf": { "@type": "EducationalOrganization", "name": "Air University" },
+      "knowsAbout": [
+        "Penetration Testing", "SOC Operations", "SIEM",
+        "Digital Forensics", "Malware Analysis", "Ethical Hacking"
+      ]
+    })} />
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <Header />
+    <main id="main-content" class="flex-grow">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

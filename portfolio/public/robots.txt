@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dynamo2k1.github.io/sitemap-index.xml

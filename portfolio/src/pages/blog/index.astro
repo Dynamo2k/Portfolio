@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import ResumeDownload from '../../components/ResumeDownload.astro';
+
+const blogPosts = [
+  {
+    title: 'Building a SOC Home Lab with Wazuh and ELK Stack',
+    excerpt: 'A comprehensive guide to setting up your own SIEM environment at home. Learn how to configure Wazuh, deploy ELK Stack, create custom detection rules, and build a fully functional security monitoring lab.',
+    date: 'February 1, 2026',
+    readTime: '12 min read',
+    slug: 'soc-home-lab',
+    category: 'Technical Guide',
+  },
+  {
+    title: 'My Journey to Top 4% on TryHackMe',
+    excerpt: 'How I went from complete beginner to ranking in the top 4% globally on TryHackMe. Sharing my learning path, strategy, favorite rooms, and tips for aspiring cybersecurity professionals.',
+    date: 'January 15, 2026',
+    readTime: '8 min read',
+    slug: 'tryhackme-journey',
+    category: 'Personal',
+  },
+  {
+    title: 'NetSnoop Deep Dive: Building a Python Packet Analyzer',
+    excerpt: 'A technical deep dive into building NetSnoop from scratch. Covering architecture decisions, Scapy integration, multi-threaded packet processing, and performance optimization techniques.',
+    date: 'January 5, 2026',
+    readTime: '15 min read',
+    slug: 'netsnoop-deep-dive',
+    category: 'Technical',
+  },
+  {
+    title: 'MITRE ATT&CK Framework: Practical Guide for SOC Analysts',
+    excerpt: 'A practical guide to leveraging the MITRE ATT&CK framework in SOC operations. Learn how to map threats, create detection rules, and integrate ATT&CK with SIEM platforms.',
+    date: 'December 20, 2025',
+    readTime: '10 min read',
+    slug: 'mitre-attack-guide',
+    category: 'Technical Guide',
+  },
+  {
+    title: '5 CTF Challenges That Changed My Security Mindset',
+    excerpt: 'Five CTF challenges that fundamentally changed how I approach security problems. Each challenge taught me a unique lesson that I apply in professional security work every day.',
+    date: 'December 10, 2025',
+    readTime: '15 min read',
+    slug: 'ctf-challenges',
+    category: 'CTF Write-ups',
+  },
+];
+---
+
+<BaseLayout title="Blog" description="CTF write-ups, security insights, and technical deep-dives by Rana Uzair Ahmad">
+  <section class="pt-24 pb-16">
+    <div class="container-custom">
+      <!-- Header -->
+      <div class="text-center mb-12">
+        <h1 class="text-4xl md:text-5xl font-bold text-text-primary mb-4">Technical Writing & Research</h1>
+        <p class="text-text-secondary max-w-2xl mx-auto">
+          CTF write-ups, security insights, and technical deep-dives
+        </p>
+      </div>
+
+      <!-- Blog Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        {blogPosts.map((post) => (
+          <BlogCard {...post} />
+        ))}
+      </div>
+
+      <!-- CTA -->
+      <div class="text-center">
+        <div class="card max-w-lg mx-auto text-center">
+          <p class="text-text-primary font-semibold mb-2">Enjoyed the articles?</p>
+          <p class="text-text-secondary text-sm mb-4">Download my resume to learn more about my professional experience.</p>
+          <ResumeDownload variant="primary" />
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

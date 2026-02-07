@@ -1,0 +1,64 @@
+---
+const filters = [
+  { id: 'all', label: 'All Projects' },
+  { id: 'featured', label: 'Featured' },
+  { id: 'offensive', label: 'Offensive Tools' },
+  { id: 'defensive', label: 'Defensive Tools' },
+  { id: 'development', label: 'Development' },
+  { id: 'research', label: 'Research' },
+];
+---
+
+<div class="flex flex-wrap gap-2 mb-8" role="tablist" aria-label="Filter projects by category">
+  {filters.map((filter) => (
+    <button
+      role="tab"
+      aria-selected={filter.id === 'all' ? 'true' : 'false'}
+      data-filter={filter.id}
+      class:list={[
+        'px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 project-filter-btn',
+        filter.id === 'all'
+          ? 'bg-accent-primary text-bg-primary'
+          : 'bg-bg-elevated text-text-secondary hover:text-text-primary hover:bg-bg-secondary',
+      ]}
+    >
+      {filter.label}
+    </button>
+  ))}
+</div>
+
+<script>
+  const filterBtns = document.querySelectorAll('.project-filter-btn');
+  const projectCards = document.querySelectorAll('[data-category]');
+
+  filterBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const filter = btn.getAttribute('data-filter');
+
+      // Update active state
+      filterBtns.forEach((b) => {
+        b.classList.remove('bg-accent-primary', 'text-bg-primary');
+        b.classList.add('bg-bg-elevated', 'text-text-secondary');
+        b.setAttribute('aria-selected', 'false');
+      });
+      btn.classList.add('bg-accent-primary', 'text-bg-primary');
+      btn.classList.remove('bg-bg-elevated', 'text-text-secondary');
+      btn.setAttribute('aria-selected', 'true');
+
+      // Filter cards
+      projectCards.forEach((card) => {
+        const el = card as HTMLElement;
+        const category = el.getAttribute('data-category');
+        const isFeatured = el.getAttribute('data-featured') === 'true';
+
+        if (filter === 'all') {
+          el.style.display = '';
+        } else if (filter === 'featured') {
+          el.style.display = isFeatured ? '' : 'none';
+        } else {
+          el.style.display = category === filter ? '' : 'none';
+        }
+      });
+    });
+  });
+</script>
