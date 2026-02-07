@@ -1,141 +1,374 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Timeline from '../components/Timeline.astro';
-import SkillCategory from '../components/SkillCategory.astro';
-import CertificationBadge from '../components/CertificationBadge.astro';
-import ResumeDownload from '../components/ResumeDownload.astro';
-import { EXPERIENCE, SKILLS, CERTIFICATIONS, CTF_ACHIEVEMENTS, COMPETITION_WINS } from '../utils/constants';
+import { SITE, SKILLS, EXPERIENCE, CERTIFICATIONS, CTF_ACHIEVEMENTS, COMPETITION_WINS, SOCIAL_LINKS } from '../utils/constants';
 ---
 
-<BaseLayout title="About" description="Learn about Rana Uzair Ahmad - Cybersecurity Engineer, SOC Analyst, and Penetration Tester">
-  <section class="pt-24 pb-16">
-    <div class="container-custom">
-      <!-- Header -->
-      <div class="max-w-3xl mx-auto text-center mb-16">
-        <h1 class="text-4xl md:text-5xl font-bold text-text-primary mb-4">Rana Uzair Ahmad</h1>
-        <p class="text-xl text-accent-primary font-semibold mb-6">
-          Cybersecurity Engineer | SOC Analyst | Penetration Tester
-        </p>
-        <ResumeDownload variant="primary" />
-      </div>
+<BaseLayout title={`About | ${SITE.author}`} description="About Rana Uzair Ahmad - Cybersecurity Engineer, SOC Analyst, and Penetration Tester">
+  <div class="page-container">
+    <header class="page-header">
+      <h1>About Me</h1>
+      <p class="headline">{SITE.headline}</p>
+    </header>
 
-      <!-- Professional Summary -->
-      <div class="max-w-3xl mx-auto mb-16 space-y-4">
-        <h2 class="text-2xl font-bold text-text-primary mb-6">Professional Summary</h2>
-        <p class="text-text-secondary leading-relaxed">
-          I'm a cybersecurity professional specializing in offensive security and threat analysis.
-          Currently serving as a SOC Analyst at the National Center of Cyber Security, I monitor
-          and respond to security incidents, analyze threat patterns, and develop custom detection
-          rules for SIEM platforms including Wazuh and Splunk.
+    <section class="bio-section">
+      <div class="bio-content">
+        <h2>Professional Summary</h2>
+        <p>
+          I am a dedicated cybersecurity professional currently serving as a SOC Analyst at the
+          National Center of Cyber Security (NCCS) and Penetration Tester at ZeroxInnovation.
+          With a strong foundation in both offensive and defensive security, I specialize in
+          threat detection, vulnerability assessment, and security tool development.
         </p>
-        <p class="text-text-secondary leading-relaxed">
-          In my role as Penetration Tester at ZeroxInnovation, I conduct vulnerability assessments,
-          perform ethical hacking engagements, and help organizations identify security weaknesses
-          before malicious actors can exploit them. My work has contributed to securing critical
-          infrastructure and preventing potential breaches.
-        </p>
-        <p class="text-text-secondary leading-relaxed">
-          Beyond my professional roles, I'm passionate about security research and tool development.
-          I've created 34+ open-source security tools including NetSnoop (packet analyzer), CortexCLI
-          (AI-powered security shell), and SSHield (SSH security toolkit). I'm also an active CTF
-          competitor, ranking in the top 4% globally on TryHackMe and top 900 on HackTheBox.
-        </p>
-        <p class="text-text-secondary leading-relaxed">
-          I believe in continuous learning and community contribution. Through my blog and open-source
-          work, I share knowledge and help others in the cybersecurity community grow their skills.
+        <p>
+          Pursuing my BS in Cyber Security at Air University, Islamabad, I combine academic
+          knowledge with hands-on experience from real-world security operations. I have
+          developed 34+ open-source security tools and consistently rank in the top percentiles
+          on platforms like TryHackMe (Top 4%) and HackTheBox (Top 900).
         </p>
       </div>
+    </section>
 
-      <!-- Experience Timeline -->
-      <div class="mb-16">
-        <h2 class="text-2xl font-bold text-text-primary mb-8 text-center">Professional Experience</h2>
-        <div class="max-w-3xl mx-auto">
-          <Timeline items={EXPERIENCE} />
-        </div>
-      </div>
-
-      <!-- Skills -->
-      <div class="mb-16">
-        <h2 class="text-2xl font-bold text-text-primary mb-8 text-center">Skills & Expertise</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <SkillCategory title={SKILLS.offensive.title} items={SKILLS.offensive.items} />
-          <SkillCategory title={SKILLS.defensive.title} items={SKILLS.defensive.items} />
-          <SkillCategory title={SKILLS.tools.title} items={SKILLS.tools.items} />
-          <SkillCategory title={SKILLS.programming.title} items={SKILLS.programming.items} />
-          <SkillCategory title={SKILLS.frameworks.title} items={SKILLS.frameworks.items} />
-          <SkillCategory title={SKILLS.os.title} items={SKILLS.os.items} />
-        </div>
-      </div>
-
-      <!-- CTF Achievements -->
-      <div class="mb-16">
-        <h2 class="text-2xl font-bold text-text-primary mb-8 text-center">CTF & Competition Achievements</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          {CTF_ACHIEVEMENTS.map((achievement) => (
-            <div class="card text-center">
-              <div class="text-3xl font-bold text-accent-primary mb-2">{achievement.achievement}</div>
-              <h3 class="text-lg font-semibold text-text-primary mb-1">{achievement.platform}</h3>
-              <p class="text-text-secondary text-sm mb-3">{achievement.details}</p>
-              <a
-                href={achievement.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-sm text-accent-primary no-underline hover:underline"
-              >
-                View Profile →
-              </a>
+    <section class="experience-section">
+      <h2>Experience</h2>
+      <div class="timeline">
+        {EXPERIENCE.map((exp) => (
+          <div class="timeline-item">
+            <div class="timeline-header">
+              <h3>{exp.title}</h3>
+              <span class="company">{exp.company}</span>
+              <span class="period">{exp.period}</span>
             </div>
-          ))}
-        </div>
-        <div class="max-w-lg mx-auto">
-          <h3 class="text-lg font-semibold text-text-primary mb-4 text-center">Competition Wins</h3>
-          <div class="space-y-3">
-            {COMPETITION_WINS.map((win) => (
-              <div class="flex items-center gap-3 text-text-secondary">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-warning flex-shrink-0" aria-hidden="true">
-                  <circle cx="12" cy="8" r="7"></circle>
-                  <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
-                </svg>
-                <span>{win}</span>
+            <ul class="timeline-details">
+              {exp.description.map((desc) => (
+                <li>{desc}</li>
+              ))}
+            </ul>
+            {exp.tech.length > 0 && (
+              <div class="tech-tags">
+                {exp.tech.map((t) => (
+                  <span class="tag">{t}</span>
+                ))}
               </div>
-            ))}
+            )}
           </div>
-        </div>
+        ))}
       </div>
+    </section>
 
-      <!-- Certifications -->
-      <div class="mb-16" id="certifications">
-        <h2 class="text-2xl font-bold text-text-primary mb-8 text-center">Certifications</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {CERTIFICATIONS.map((cert) => (
-            <CertificationBadge name={cert.name} year={cert.year} file={cert.file} />
-          ))}
-        </div>
-      </div>
-
-      <!-- Current Learning -->
-      <div class="mb-16">
-        <h2 class="text-2xl font-bold text-text-primary mb-8 text-center">Current Learning & Research</h2>
-        <div class="max-w-2xl mx-auto">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {['Advanced malware analysis techniques', 'Cloud security (AWS/Azure)', 'Rust programming for security tools', 'AI/ML in cybersecurity', 'Red team tactics and techniques'].map((item) => (
-              <div class="flex items-center gap-3 text-text-secondary">
-                <span class="text-accent-primary" aria-hidden="true">▸</span>
-                <span>{item}</span>
-              </div>
-            ))}
+    <section class="skills-section">
+      <h2>Skills & Expertise</h2>
+      <div class="skills-grid">
+        {Object.values(SKILLS).map((skill) => (
+          <div class="skill-category">
+            <h3>{skill.title}</h3>
+            <div class="skill-items">
+              {skill.items.map((item) => (
+                <span class="skill-tag">{item}</span>
+              ))}
+            </div>
           </div>
-        </div>
+        ))}
       </div>
+    </section>
 
-      <!-- Resume Download -->
-      <div class="text-center">
-        <div class="card max-w-lg mx-auto text-center">
-          <h2 class="text-xl font-bold text-text-primary mb-2">Want to know more about my experience?</h2>
-          <p class="text-text-secondary text-sm mb-4">PDF format, ATS-friendly. Last updated: February 2026</p>
-          <ResumeDownload variant="large" />
-        </div>
+    <section class="certs-section">
+      <h2>Certifications</h2>
+      <div class="certs-grid">
+        {CERTIFICATIONS.map((cert) => (
+          <a href={cert.file} target="_blank" rel="noopener noreferrer" class="cert-card">
+            <span class="cert-year">{cert.year}</span>
+            <h3>{cert.name}</h3>
+            <span class="cert-view">View Certificate →</span>
+          </a>
+        ))}
       </div>
-    </div>
-  </section>
+    </section>
+
+    <section class="ctf-section">
+      <h2>CTF Achievements</h2>
+      <div class="achievements-grid">
+        {CTF_ACHIEVEMENTS.map((ctf) => (
+          <a href={ctf.link} target="_blank" rel="noopener noreferrer" class="achievement-card">
+            <h3>{ctf.platform}</h3>
+            <span class="achievement-value">{ctf.achievement}</span>
+            <p>{ctf.details}</p>
+          </a>
+        ))}
+      </div>
+      <div class="competition-wins">
+        <h3>Competition Wins</h3>
+        {COMPETITION_WINS.map((win) => (
+          <div class="win-item">🏆 {win}</div>
+        ))}
+      </div>
+    </section>
+
+    <section class="connect-section">
+      <h2>Let's Connect</h2>
+      <p>I'm always open to discussing cybersecurity, collaborating on projects, or exploring new opportunities.</p>
+      <div class="connect-buttons">
+        <a href={SOCIAL_LINKS.github} target="_blank" rel="noopener noreferrer" class="btn-secondary">GitHub</a>
+        <a href={SOCIAL_LINKS.linkedin} target="_blank" rel="noopener noreferrer" class="btn-secondary">LinkedIn</a>
+        <a href={`mailto:${SOCIAL_LINKS.email}`} class="btn-primary">Email Me</a>
+        <a href={SITE.resumeFile} download class="btn-primary">Download Resume</a>
+      </div>
+    </section>
+  </div>
 </BaseLayout>
+
+<style>
+  .page-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  .page-header {
+    text-align: center;
+    padding: 3rem 0;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .page-header h1 {
+    font-size: 2.5rem;
+    color: var(--text-heading);
+    margin-bottom: 0.5rem;
+  }
+
+  .headline {
+    color: var(--accent-primary);
+    font-size: 1.2rem;
+  }
+
+  section {
+    margin-bottom: 3rem;
+  }
+
+  section h2 {
+    color: var(--text-heading);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .bio-content p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+
+  .timeline-item {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .timeline-header h3 {
+    color: var(--text-heading);
+    font-size: 1.15rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .company {
+    color: var(--accent-primary);
+    font-size: 0.95rem;
+    display: block;
+  }
+
+  .period {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+
+  .timeline-details {
+    list-style: none;
+    padding: 0;
+  }
+
+  .timeline-details li {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    padding: 0.3rem 0;
+    padding-left: 1.25rem;
+    position: relative;
+  }
+
+  .timeline-details li::before {
+    content: '▸';
+    color: var(--accent-primary);
+    position: absolute;
+    left: 0;
+  }
+
+  .tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.75rem;
+  }
+
+  .tag, .skill-tag {
+    background: var(--bg-hover);
+    color: var(--text-secondary);
+    padding: 0.25rem 0.625rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .skill-category {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 1.5rem;
+  }
+
+  .skill-category h3 {
+    color: var(--text-heading);
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .skill-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+
+  .cert-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 1.25rem;
+    text-decoration: none;
+    transition: all 300ms ease;
+    display: block;
+  }
+
+  .cert-card:hover {
+    border-color: var(--accent-primary);
+    transform: translateY(-2px);
+  }
+
+  .cert-year {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+  }
+
+  .cert-card h3 {
+    color: var(--text-heading);
+    font-size: 0.95rem;
+    margin: 0.5rem 0;
+  }
+
+  .cert-view {
+    color: var(--accent-primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  .achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .achievement-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-decoration: none;
+    transition: all 300ms ease;
+    display: block;
+  }
+
+  .achievement-card:hover {
+    border-color: var(--accent-primary);
+    transform: translateY(-2px);
+  }
+
+  .achievement-card h3 {
+    color: var(--text-heading);
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .achievement-value {
+    color: var(--accent-primary);
+    font-size: 1.5rem;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .achievement-card p {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+  }
+
+  .competition-wins h3 {
+    color: var(--text-heading);
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .win-item {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    padding: 0.75rem 1.25rem;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .connect-section {
+    text-align: center;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 3rem 2rem;
+  }
+
+  .connect-section h2 {
+    border: none;
+    padding: 0;
+  }
+
+  .connect-section p {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+  }
+
+  .connect-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 768px) {
+    .skills-grid, .certs-grid, .achievements-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

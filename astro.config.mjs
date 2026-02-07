@@ -10,4 +10,10 @@ export default defineConfig({
     tailwind(),
     sitemap(),
   ],
+  markdown: {
+    shikiConfig: {
+      theme: 'github-dark',
+      wrap: true,
+    },
+  },
 });

@@ -1,75 +1,61 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { SITE } from '../utils/constants';
 import '../styles/global.css';
 
 interface Props {
   title?: string;
   description?: string;
+  image?: string;
 }
 
-const { title, description } = Astro.props;
-const pageTitle = title ? `${title} | ${SITE.title}` : `${SITE.title} | ${SITE.headline}`;
-const pageDescription = description || SITE.description;
+const {
+  title = 'Rana Uzair Ahmad | Cybersecurity Engineer',
+  description = 'Cybersecurity professional specializing in SOC operations, penetration testing, and security tool development.',
+  image = '/images/projects/Net_Snoop.png',
+} = Astro.props;
+
+import { SITE } from '../utils/constants';
 ---
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={pageDescription} />
-    <meta name="keywords" content="cybersecurity, penetration testing, SOC analyst, security engineer, ethical hacking, SIEM, Wazuh, Splunk" />
-    <meta name="author" content={SITE.author} />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={description} />
+  <meta name="author" content={SITE.author} />
+  <meta name="keywords" content="cybersecurity, SOC analyst, penetration testing, security engineer, portfolio" />
 
-    <!-- Open Graph -->
-    <meta property="og:title" content={pageTitle} />
-    <meta property="og:description" content={pageDescription} />
-    <meta property="og:url" content={SITE.url} />
-    <meta property="og:type" content="website" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={image} />
+  <meta property="og:type" content="website" />
 
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={pageTitle} />
-    <meta name="twitter:description" content={pageDescription} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
 
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
-    <title>{pageTitle}</title>
-
-    <!-- Structured Data -->
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Rana Uzair Ahmad",
-      "jobTitle": "Cybersecurity Engineer | SOC Analyst | Penetration Tester",
-      "description": "Cybersecurity professional specializing in SOC operations and penetration testing",
-      "url": SITE.url,
-      "sameAs": [
-        "https://github.com/Dynamo2k1",
-        "https://linkedin.com/in/rana-uzair-ahmad-82b8b6223",
-        "https://tryhackme.com/p/Dynamo2k1",
-        "https://dynamo2k1.github.io"
-      ],
-      "worksFor": [
-        { "@type": "Organization", "name": "ZeroxInnovation" },
-        { "@type": "Organization", "name": "National Center of Cyber Security" }
-      ],
-      "alumniOf": { "@type": "EducationalOrganization", "name": "Air University" },
-      "knowsAbout": [
-        "Penetration Testing", "SOC Operations", "SIEM",
-        "Digital Forensics", "Malware Analysis", "Ethical Hacking"
-      ]
-    })} />
-  </head>
-  <body class="min-h-screen flex flex-col">
-    <Header />
-    <main id="main-content" class="flex-grow">
-      <slot />
-    </main>
-    <Footer />
-  </body>
+  <title>{title}</title>
+</head>
+<body>
+  <Header />
+  <main class="main-content">
+    <slot />
+  </main>
+  <Footer />
+</body>
 </html>
+
+<style>
+  .main-content {
+    padding-top: 4rem;
+    min-height: 100vh;
+  }
+</style>

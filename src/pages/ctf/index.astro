@@ -1,0 +1,163 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getCollection } from 'astro:content';
+import { CTF_ACHIEVEMENTS, COMPETITION_WINS } from '../../utils/constants';
+
+const allCTF = (await getCollection('ctf'))
+  .sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf());
+---
+
+<BaseLayout title="CTF Writeups | Rana Uzair Ahmad" description="CTF writeups, competition achievements, and challenge walkthroughs">
+  <div class="page-container">
+    <header class="page-header">
+      <h1>CTF Writeups & Achievements</h1>
+      <p>Challenge walkthroughs, competition results, and strategies for Capture The Flag competitions.</p>
+    </header>
+
+    <section class="achievements-section">
+      <h2>Platform Rankings</h2>
+      <div class="achievements-grid">
+        {CTF_ACHIEVEMENTS.map((ctf) => (
+          <a href={ctf.link} target="_blank" rel="noopener noreferrer" class="achievement-card">
+            <h3>{ctf.platform}</h3>
+            <span class="achievement-value">{ctf.achievement}</span>
+            <p>{ctf.details}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="wins-section">
+      <h2>Competition Wins</h2>
+      <div class="wins-list">
+        {COMPETITION_WINS.map((win) => (
+          <div class="win-item">🏆 {win}</div>
+        ))}
+      </div>
+    </section>
+
+    <section class="writeups-section">
+      <h2>Writeups</h2>
+      <div class="posts-grid">
+        {allCTF.map((post) => (
+          <PostCard
+            title={post.data.title}
+            description={post.data.description}
+            date={post.data.date}
+            category={post.data.category}
+            tags={post.data.tags}
+            image={post.data.image}
+            slug={post.id}
+            collection="ctf"
+          />
+        ))}
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  .page-header {
+    text-align: center;
+    padding: 3rem 0;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .page-header h1 {
+    font-size: 2.5rem;
+    color: var(--text-heading);
+    margin-bottom: 1rem;
+  }
+
+  .page-header p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .achievements-section, .wins-section, .writeups-section {
+    margin-bottom: 3rem;
+  }
+
+  .achievements-section h2, .wins-section h2, .writeups-section h2 {
+    color: var(--text-heading);
+    margin-bottom: 1.5rem;
+  }
+
+  .achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .achievement-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-decoration: none;
+    transition: all 300ms ease;
+    display: block;
+  }
+
+  .achievement-card:hover {
+    border-color: var(--accent-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 255, 159, 0.1);
+  }
+
+  .achievement-card h3 {
+    color: var(--text-heading);
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .achievement-value {
+    color: var(--accent-primary);
+    font-size: 1.5rem;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .achievement-card p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+  }
+
+  .wins-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .win-item {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    color: var(--text-primary);
+    font-size: 1rem;
+  }
+
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .achievements-grid, .posts-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
