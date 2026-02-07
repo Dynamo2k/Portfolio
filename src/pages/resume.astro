@@ -1,182 +1,264 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import ResumeDownload from '../components/ResumeDownload.astro';
-import { EXPERIENCE, CERTIFICATIONS, SKILLS } from '../utils/constants';
+import { SITE, EXPERIENCE, SKILLS, CERTIFICATIONS } from '../utils/constants';
 ---
 
-<BaseLayout title="Resume" description="Resume / CV for Rana Uzair Ahmad - Cybersecurity Engineer, SOC Analyst, Penetration Tester">
-  <section class="pt-24 pb-16">
-    <div class="container-custom max-w-4xl mx-auto">
-      <!-- Header -->
-      <div class="text-center mb-12">
-        <h1 class="text-4xl md:text-5xl font-bold text-text-primary mb-4">Resume / CV</h1>
-        <p class="text-text-secondary mb-6">Last Updated: February 2026</p>
-        <ResumeDownload variant="large" />
-      </div>
+<BaseLayout title={`Resume | ${SITE.author}`} description="Professional resume and qualifications">
+  <div class="page-container">
+    <header class="page-header">
+      <h1>Resume</h1>
+      <p>{SITE.headline}</p>
+      <a href={SITE.resumeFile} download class="btn-primary">↓ Download Full Resume (PDF)</a>
+    </header>
 
-      <!-- Professional Summary -->
-      <div class="card mb-8">
-        <h2 class="text-xl font-bold text-text-primary mb-4">Professional Summary</h2>
-        <p class="text-text-secondary leading-relaxed">
-          Cybersecurity professional with 2+ years of experience in SOC operations and
-          penetration testing. Specializing in threat detection, vulnerability assessment,
-          and security tool development. Proven track record in SIEM operations (Wazuh,
-          Splunk), penetration testing, and creating custom security solutions. Top 4%
-          globally on TryHackMe with 34+ open-source security projects.
-        </p>
-      </div>
-
-      <!-- Professional Experience -->
-      <div class="mb-8">
-        <h2 class="text-xl font-bold text-text-primary mb-6">Professional Experience</h2>
-        <div class="space-y-6">
-          {EXPERIENCE.slice(0, 3).map((exp) => (
-            <div class="card">
-              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
-                <h3 class="text-lg font-semibold text-text-primary">{exp.title}</h3>
-                <span class="text-sm text-accent-primary">{exp.period}</span>
-              </div>
-              <p class="text-accent-secondary text-sm mb-3">{exp.company}</p>
-              <ul class="space-y-1">
-                {exp.description.map((desc) => (
-                  <li class="text-text-secondary text-sm flex items-start gap-2">
-                    <span class="text-accent-primary mt-1 flex-shrink-0" aria-hidden="true">•</span>
-                    <span>{desc}</span>
-                  </li>
-                ))}
-              </ul>
-              {exp.tech.length > 0 && (
-                <div class="flex flex-wrap gap-2 mt-3">
-                  {exp.tech.map((t) => (
-                    <span class="text-xs px-2 py-1 bg-bg-elevated rounded text-text-muted font-mono">{t}</span>
-                  ))}
-                </div>
-              )}
+    <section class="resume-section">
+      <h2>Professional Experience</h2>
+      {EXPERIENCE.map((exp) => (
+        <div class="resume-item">
+          <div class="resume-item-header">
+            <div>
+              <h3>{exp.title}</h3>
+              <span class="company">{exp.company}</span>
             </div>
-          ))}
+            <span class="period">{exp.period}</span>
+          </div>
+          <ul>
+            {exp.description.map((desc) => (
+              <li>{desc}</li>
+            ))}
+          </ul>
+          {exp.tech.length > 0 && (
+            <div class="tech-tags">
+              {exp.tech.map((t) => (
+                <span class="tag">{t}</span>
+              ))}
+            </div>
+          )}
         </div>
-      </div>
+      ))}
+    </section>
 
-      <!-- Education -->
-      <div class="card mb-8">
-        <h2 class="text-xl font-bold text-text-primary mb-4">Education</h2>
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
-          <h3 class="text-lg font-semibold text-text-primary">BS Cyber Security</h3>
-          <span class="text-sm text-accent-primary">2023 - Present</span>
-        </div>
-        <p class="text-accent-secondary text-sm mb-2">Air University, Islamabad</p>
-        <ul class="space-y-1">
-          <li class="text-text-secondary text-sm flex items-start gap-2">
-            <span class="text-accent-primary mt-1 flex-shrink-0" aria-hidden="true">•</span>
-            <span>Relevant Coursework: Advanced Cryptography, Network Security, Malware Analysis</span>
-          </li>
-          <li class="text-text-secondary text-sm flex items-start gap-2">
-            <span class="text-accent-primary mt-1 flex-shrink-0" aria-hidden="true">•</span>
-            <span>Member of Cybersecurity Club and CTF team</span>
-          </li>
-        </ul>
-      </div>
-
-      <!-- Technical Skills -->
-      <div class="card mb-8">
-        <h2 class="text-xl font-bold text-text-primary mb-4">Technical Skills</h2>
-        <div class="space-y-4">
-          <div>
-            <h3 class="text-sm font-semibold text-accent-primary mb-2">Offensive Security</h3>
-            <p class="text-text-secondary text-sm">Penetration Testing, Web App Security, Network Security, Exploit Development</p>
+    <section class="resume-section">
+      <h2>Technical Skills</h2>
+      <div class="skills-grid">
+        {Object.values(SKILLS).map((skill) => (
+          <div class="skill-group">
+            <h3>{skill.title}</h3>
+            <p>{skill.items.join(' • ')}</p>
           </div>
-          <div>
-            <h3 class="text-sm font-semibold text-accent-primary mb-2">Defensive Security</h3>
-            <p class="text-text-secondary text-sm">SOC Operations, SIEM (Wazuh, Splunk, ELK), Threat Hunting, Incident Response, Digital Forensics, Malware Analysis</p>
-          </div>
-          <div>
-            <h3 class="text-sm font-semibold text-accent-primary mb-2">Tools</h3>
-            <p class="text-text-secondary text-sm">Burp Suite, Metasploit, Nmap, Wireshark, Volatility, Autopsy, Ghidra, IDA Pro, John the Ripper, Hashcat</p>
-          </div>
-          <div>
-            <h3 class="text-sm font-semibold text-accent-primary mb-2">Programming</h3>
-            <p class="text-text-secondary text-sm">Python, C/C++, Bash, Assembly, Rust (learning), JavaScript</p>
-          </div>
-          <div>
-            <h3 class="text-sm font-semibold text-accent-primary mb-2">Frameworks</h3>
-            <p class="text-text-secondary text-sm">MITRE ATT&CK, OWASP, NIST, CIS Controls</p>
-          </div>
-        </div>
+        ))}
       </div>
+    </section>
 
-      <!-- Certifications -->
-      <div class="card mb-8">
-        <h2 class="text-xl font-bold text-text-primary mb-4">Certifications</h2>
-        <ul class="space-y-2">
-          {CERTIFICATIONS.map((cert) => (
-            <li class="text-text-secondary text-sm flex items-center justify-between">
-              <span>{cert.name}</span>
-              <span class="text-text-muted text-xs">({cert.year})</span>
-            </li>
-          ))}
-        </ul>
+    <section class="resume-section">
+      <h2>Certifications</h2>
+      <div class="certs-list">
+        {CERTIFICATIONS.map((cert) => (
+          <a href={cert.file} target="_blank" rel="noopener noreferrer" class="cert-item">
+            <span class="cert-name">{cert.name}</span>
+            <span class="cert-year">{cert.year}</span>
+          </a>
+        ))}
       </div>
+    </section>
 
-      <!-- Notable Projects -->
-      <div class="card mb-8">
-        <h2 class="text-xl font-bold text-text-primary mb-4">Notable Projects</h2>
-        <ul class="space-y-2">
-          <li class="text-text-secondary text-sm flex items-start gap-2">
-            <span class="text-accent-primary mt-1 flex-shrink-0" aria-hidden="true">•</span>
-            <span><strong class="text-text-primary">NetSnoop</strong> — Advanced packet analyzer (Python, Scapy)</span>
-          </li>
-          <li class="text-text-secondary text-sm flex items-start gap-2">
-            <span class="text-accent-primary mt-1 flex-shrink-0" aria-hidden="true">•</span>
-            <span><strong class="text-text-primary">CortexCLI</strong> — AI-powered security shell (C, AI Integration)</span>
-          </li>
-          <li class="text-text-secondary text-sm flex items-start gap-2">
-            <span class="text-accent-primary mt-1 flex-shrink-0" aria-hidden="true">•</span>
-            <span><strong class="text-text-primary">SSHield</strong> — SSH security toolkit (Python)</span>
-          </li>
-          <li class="text-text-secondary text-sm flex items-start gap-2">
-            <span class="text-accent-primary mt-1 flex-shrink-0" aria-hidden="true">•</span>
-            <span><strong class="text-text-primary">VortexTunnel</strong> — SSH tunneling solution (Python)</span>
-          </li>
-          <li class="text-text-secondary text-sm flex items-start gap-2">
-            <span class="text-accent-primary mt-1 flex-shrink-0" aria-hidden="true">•</span>
-            <span>34+ open-source security projects on GitHub</span>
-          </li>
-        </ul>
-      </div>
-
-      <!-- Achievements -->
-      <div class="card mb-12">
-        <h2 class="text-xl font-bold text-text-primary mb-4">Achievements</h2>
-        <ul class="space-y-2">
-          <li class="text-text-secondary text-sm flex items-start gap-2">
-            <span class="text-accent-primary mt-1 flex-shrink-0" aria-hidden="true">•</span>
-            <span>Top 4% on TryHackMe (70+ rooms completed)</span>
-          </li>
-          <li class="text-text-secondary text-sm flex items-start gap-2">
-            <span class="text-accent-primary mt-1 flex-shrink-0" aria-hidden="true">•</span>
-            <span>Top 900 on HackTheBox</span>
-          </li>
-          <li class="text-text-secondary text-sm flex items-start gap-2">
-            <span class="text-accent-primary mt-1 flex-shrink-0" aria-hidden="true">•</span>
-            <span>Top 7 on CTFtime.org</span>
-          </li>
-          <li class="text-text-secondary text-sm flex items-start gap-2">
-            <span class="text-accent-primary mt-1 flex-shrink-0" aria-hidden="true">•</span>
-            <span>1st Place — Air University CTF (2024)</span>
-          </li>
-          <li class="text-text-secondary text-sm flex items-start gap-2">
-            <span class="text-accent-primary mt-1 flex-shrink-0" aria-hidden="true">•</span>
-            <span>2nd Place — Islamabad Cyber Challenge</span>
-          </li>
-        </ul>
-      </div>
-
-      <!-- Download CTA -->
-      <div class="card text-center max-w-lg mx-auto">
-        <h2 class="text-xl font-bold text-text-primary mb-2">Ready to discuss opportunities?</h2>
-        <p class="text-text-secondary text-sm mb-4">PDF format, ATS-friendly. File size: ~200KB</p>
-        <ResumeDownload variant="large" />
-      </div>
-    </div>
-  </section>
+    <section class="download-section">
+      <h2>Get the Full Resume</h2>
+      <p>Download my complete resume with detailed project descriptions and references.</p>
+      <a href={SITE.resumeFile} download class="btn-primary">↓ Download Resume (PDF)</a>
+    </section>
+  </div>
 </BaseLayout>
+
+<style>
+  .page-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  .page-header {
+    text-align: center;
+    padding: 3rem 0;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .page-header h1 {
+    font-size: 2.5rem;
+    color: var(--text-heading);
+    margin-bottom: 0.5rem;
+  }
+
+  .page-header p {
+    color: var(--accent-primary);
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .resume-section {
+    margin-bottom: 3rem;
+  }
+
+  .resume-section h2 {
+    color: var(--text-heading);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .resume-item {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .resume-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .resume-item h3 {
+    color: var(--text-heading);
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .company {
+    color: var(--accent-primary);
+    font-size: 0.95rem;
+  }
+
+  .period {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+
+  .resume-item ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .resume-item li {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    padding: 0.3rem 0;
+    padding-left: 1.25rem;
+    position: relative;
+  }
+
+  .resume-item li::before {
+    content: '▸';
+    color: var(--accent-primary);
+    position: absolute;
+    left: 0;
+  }
+
+  .tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.75rem;
+  }
+
+  .tag {
+    background: var(--bg-hover);
+    color: var(--text-secondary);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+
+  .skill-group {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 1.25rem;
+  }
+
+  .skill-group h3 {
+    color: var(--text-heading);
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .skill-group p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .certs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .cert-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    text-decoration: none;
+    transition: all 200ms ease;
+  }
+
+  .cert-item:hover {
+    border-color: var(--accent-primary);
+  }
+
+  .cert-name {
+    color: var(--text-primary);
+    font-size: 0.95rem;
+  }
+
+  .cert-year {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+
+  .download-section {
+    text-align: center;
+    background: var(--bg-secondary);
+    border: 1px solid var(--accent-primary);
+    border-radius: 12px;
+    padding: 3rem 2rem;
+  }
+
+  .download-section h2 {
+    border: none;
+    padding: 0;
+    color: var(--text-heading);
+    margin-bottom: 0.75rem;
+  }
+
+  .download-section p {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .skills-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .resume-item-header {
+      flex-direction: column;
+    }
+  }
+</style>

@@ -1,155 +1,136 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Hero from '../components/Hero.astro';
-import ProjectCard from '../components/ProjectCard.astro';
-import SkillCategory from '../components/SkillCategory.astro';
-import BlogCard from '../components/BlogCard.astro';
-import CertificationBadge from '../components/CertificationBadge.astro';
-import ResumeDownload from '../components/ResumeDownload.astro';
-import { FEATURED_PROJECTS, STATS, SKILLS, CERTIFICATIONS } from '../utils/constants';
+import PostCard from '../components/PostCard.astro';
+import Sidebar from '../components/Sidebar.astro';
+import { getCollection } from 'astro:content';
+import { SITE } from '../utils/constants';
 
-const blogPosts = [
-  { title: 'Building a SOC Home Lab with Wazuh and ELK Stack', excerpt: 'A comprehensive guide to setting up your own SIEM environment at home for hands-on security monitoring practice.', date: 'February 1, 2026', readTime: '12 min read', slug: 'soc-home-lab', category: 'Technical Guide' },
-  { title: 'My Journey to Top 4% on TryHackMe', excerpt: 'How I went from beginner to top 4% globally on TryHackMe, and what I learned along the way.', date: 'January 15, 2026', readTime: '8 min read', slug: 'tryhackme-journey', category: 'Personal' },
-  { title: 'NetSnoop Deep Dive: Building a Python Packet Analyzer', excerpt: 'A technical deep dive into building NetSnoop, covering architecture decisions, Scapy integration, and performance optimization.', date: 'January 5, 2026', readTime: '15 min read', slug: 'netsnoop-deep-dive', category: 'Technical' },
-];
+const allBlog = await getCollection('blog');
+const allProjects = await getCollection('projects');
+const allCTF = await getCollection('ctf');
 
-const featuredCerts = CERTIFICATIONS.slice(0, 6);
+const allContent = [
+  ...allBlog.map(p => ({ ...p, collection: 'blog' as const })),
+  ...allProjects.map(p => ({ ...p, collection: 'projects' as const })),
+  ...allCTF.map(p => ({ ...p, collection: 'ctf' as const })),
+].sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf())
+ .slice(0, 12);
 ---
 
-<BaseLayout>
-  <!-- Hero Section -->
-  <Hero />
-
-  <!-- Professional Bio -->
-  <section class="section-spacing" aria-label="Professional Bio">
-    <div class="container-custom max-w-3xl mx-auto text-center">
-      <p class="text-text-secondary text-lg leading-relaxed">
-        I'm a cybersecurity professional specializing in offensive security and threat analysis.
-        Currently serving as SOC Analyst at the National Center of Cyber Security and Penetration
-        Tester at ZeroxInnovation, I focus on threat detection, vulnerability assessment, and
-        security tool development. With expertise in SIEM operations, penetration testing, and
-        security automation, I help organizations identify and mitigate threats before they can
-        be exploited.
+<BaseLayout title={`${SITE.author} | Cybersecurity Engineer`}>
+  <div class="container">
+    <section class="hero">
+      <h1>Rana Uzair Ahmad</h1>
+      <p class="headline">Cybersecurity Engineer | SOC Analyst | Penetration Tester</p>
+      <p class="subheadline">
+        SOC Analyst @ NCCS | Penetration Tester @ ZeroxInnovation<br />
+        Top 4% TryHackMe | 34+ Security Projects
       </p>
-    </div>
-  </section>
+      <div class="cta-buttons">
+        <a href="/blog/" class="btn-primary">View Latest Posts</a>
+        <a href={SITE.resumeFile} download class="btn-secondary">Download Resume</a>
+      </div>
+    </section>
 
-  <!-- Stats Section -->
-  <section class="section-spacing bg-bg-secondary" aria-label="Professional Statistics">
-    <div class="container-custom">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-        {STATS.map((stat) => (
-          <div class="text-center">
-            <div class="text-3xl md:text-4xl font-bold text-accent-primary mb-1">{stat.value}</div>
-            <div class="text-text-secondary text-sm">{stat.label}</div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
+    <div class="main-grid">
+      <main class="posts-section">
+        <h2>Latest Updates</h2>
+        <div class="posts-grid">
+          {allContent.map((item) => (
+            <PostCard
+              title={item.data.title}
+              description={item.data.description}
+              date={item.data.date}
+              category={item.data.category}
+              tags={item.data.tags}
+              image={item.data.image}
+              slug={item.id}
+              collection={item.collection}
+            />
+          ))}
+        </div>
+      </main>
 
-  <!-- Featured Projects -->
-  <section class="section-spacing" aria-label="Featured Projects">
-    <div class="container-custom">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold text-text-primary mb-4">Featured Projects</h2>
-        <p class="text-text-secondary max-w-2xl mx-auto">
-          Open-source security tools and research from 34+ GitHub repositories
-        </p>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {FEATURED_PROJECTS.slice(0, 6).map((project) => (
-          <ProjectCard {...project} />
-        ))}
-      </div>
-      <div class="text-center mt-8">
-        <a href="/projects/" class="btn-secondary no-underline">
-          View All 34+ Projects →
-        </a>
-      </div>
+      <Sidebar />
     </div>
-  </section>
-
-  <!-- Skills Overview -->
-  <section class="section-spacing bg-bg-secondary" aria-label="Skills and Expertise">
-    <div class="container-custom">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold text-text-primary mb-4">Skills & Expertise</h2>
-        <p class="text-text-secondary max-w-2xl mx-auto">
-          Comprehensive cybersecurity skillset spanning offensive and defensive operations
-        </p>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <SkillCategory title={SKILLS.offensive.title} items={SKILLS.offensive.items} />
-        <SkillCategory title={SKILLS.defensive.title} items={SKILLS.defensive.items} />
-        <SkillCategory title={SKILLS.tools.title} items={SKILLS.tools.items} />
-        <SkillCategory title={SKILLS.programming.title} items={SKILLS.programming.items} />
-        <SkillCategory title={SKILLS.frameworks.title} items={SKILLS.frameworks.items} />
-        <SkillCategory title={SKILLS.os.title} items={SKILLS.os.items} />
-      </div>
-    </div>
-  </section>
-
-  <!-- Certifications -->
-  <section class="section-spacing" aria-label="Certifications">
-    <div class="container-custom">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold text-text-primary mb-4">Certifications</h2>
-        <p class="text-text-secondary max-w-2xl mx-auto">
-          Professional certifications and training achievements
-        </p>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {featuredCerts.map((cert) => (
-          <CertificationBadge name={cert.name} year={cert.year} file={cert.file} />
-        ))}
-      </div>
-      <div class="text-center mt-6">
-        <a href="/about/#certifications" class="text-accent-primary hover:underline no-underline text-sm">
-          View All Certifications →
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Blog Posts -->
-  <section class="section-spacing bg-bg-secondary" aria-label="Recent Blog Posts">
-    <div class="container-custom">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold text-text-primary mb-4">Recent Articles</h2>
-        <p class="text-text-secondary max-w-2xl mx-auto">
-          CTF write-ups, security insights, and technical deep-dives
-        </p>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {blogPosts.map((post) => (
-          <BlogCard {...post} />
-        ))}
-      </div>
-      <div class="text-center mt-8">
-        <a href="/blog/" class="btn-secondary no-underline">
-          Read More Articles →
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Final CTA -->
-  <section class="section-spacing" aria-label="Call to Action">
-    <div class="container-custom text-center">
-      <h2 class="text-3xl md:text-4xl font-bold text-text-primary mb-4">
-        Looking for a cybersecurity professional?
-      </h2>
-      <p class="text-text-secondary max-w-xl mx-auto mb-8">
-        I'm available for full-time positions, freelance security consulting, and research collaborations.
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <ResumeDownload variant="large" />
-        <a href="/contact/" class="btn-secondary no-underline">
-          Contact Me
-        </a>
-      </div>
-    </div>
-  </section>
+  </div>
 </BaseLayout>
+
+<style>
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  .hero {
+    text-align: center;
+    padding: 4rem 0;
+    border-bottom: 1px solid var(--border-subtle);
+    margin-bottom: 3rem;
+  }
+
+  .hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--text-heading);
+  }
+
+  .headline {
+    font-size: 1.4rem;
+    color: var(--accent-primary);
+    margin-bottom: 0.5rem;
+  }
+
+  .subheadline {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .main-grid {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .posts-section h2 {
+    margin-bottom: 2rem;
+    color: var(--text-heading);
+  }
+
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 1024px) {
+    .main-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero h1 {
+      font-size: 2rem;
+    }
+
+    .headline {
+      font-size: 1.1rem;
+    }
+
+    .posts-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

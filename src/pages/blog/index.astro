@@ -1,78 +1,72 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import BlogCard from '../../components/BlogCard.astro';
-import ResumeDownload from '../../components/ResumeDownload.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getCollection } from 'astro:content';
 
-const blogPosts = [
-  {
-    title: 'Building a SOC Home Lab with Wazuh and ELK Stack',
-    excerpt: 'A comprehensive guide to setting up your own SIEM environment at home. Learn how to configure Wazuh, deploy ELK Stack, create custom detection rules, and build a fully functional security monitoring lab.',
-    date: 'February 1, 2026',
-    readTime: '12 min read',
-    slug: 'soc-home-lab',
-    category: 'Technical Guide',
-  },
-  {
-    title: 'My Journey to Top 4% on TryHackMe',
-    excerpt: 'How I went from complete beginner to ranking in the top 4% globally on TryHackMe. Sharing my learning path, strategy, favorite rooms, and tips for aspiring cybersecurity professionals.',
-    date: 'January 15, 2026',
-    readTime: '8 min read',
-    slug: 'tryhackme-journey',
-    category: 'Personal',
-  },
-  {
-    title: 'NetSnoop Deep Dive: Building a Python Packet Analyzer',
-    excerpt: 'A technical deep dive into building NetSnoop from scratch. Covering architecture decisions, Scapy integration, multi-threaded packet processing, and performance optimization techniques.',
-    date: 'January 5, 2026',
-    readTime: '15 min read',
-    slug: 'netsnoop-deep-dive',
-    category: 'Technical',
-  },
-  {
-    title: 'MITRE ATT&CK Framework: Practical Guide for SOC Analysts',
-    excerpt: 'A practical guide to leveraging the MITRE ATT&CK framework in SOC operations. Learn how to map threats, create detection rules, and integrate ATT&CK with SIEM platforms.',
-    date: 'December 20, 2025',
-    readTime: '10 min read',
-    slug: 'mitre-attack-guide',
-    category: 'Technical Guide',
-  },
-  {
-    title: '5 CTF Challenges That Changed My Security Mindset',
-    excerpt: 'Five CTF challenges that fundamentally changed how I approach security problems. Each challenge taught me a unique lesson that I apply in professional security work every day.',
-    date: 'December 10, 2025',
-    readTime: '15 min read',
-    slug: 'ctf-challenges',
-    category: 'CTF Write-ups',
-  },
-];
+const allPosts = (await getCollection('blog'))
+  .sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf());
 ---
 
-<BaseLayout title="Blog" description="CTF write-ups, security insights, and technical deep-dives by Rana Uzair Ahmad">
-  <section class="pt-24 pb-16">
-    <div class="container-custom">
-      <!-- Header -->
-      <div class="text-center mb-12">
-        <h1 class="text-4xl md:text-5xl font-bold text-text-primary mb-4">Technical Writing & Research</h1>
-        <p class="text-text-secondary max-w-2xl mx-auto">
-          CTF write-ups, security insights, and technical deep-dives
-        </p>
-      </div>
+<BaseLayout title="Blog | Rana Uzair Ahmad" description="Cybersecurity articles, tutorials, and insights">
+  <div class="page-container">
+    <header class="page-header">
+      <h1>Blog</h1>
+      <p>Cybersecurity articles, tutorials, and insights from my experience in SOC operations and penetration testing.</p>
+    </header>
 
-      <!-- Blog Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-        {blogPosts.map((post) => (
-          <BlogCard {...post} />
-        ))}
-      </div>
-
-      <!-- CTA -->
-      <div class="text-center">
-        <div class="card max-w-lg mx-auto text-center">
-          <p class="text-text-primary font-semibold mb-2">Enjoyed the articles?</p>
-          <p class="text-text-secondary text-sm mb-4">Download my resume to learn more about my professional experience.</p>
-          <ResumeDownload variant="primary" />
-        </div>
-      </div>
+    <div class="posts-grid">
+      {allPosts.map((post) => (
+        <PostCard
+          title={post.data.title}
+          description={post.data.description}
+          date={post.data.date}
+          category={post.data.category}
+          tags={post.data.tags}
+          image={post.data.image}
+          slug={post.id}
+          collection="blog"
+        />
+      ))}
     </div>
-  </section>
+  </div>
 </BaseLayout>
+
+<style>
+  .page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  .page-header {
+    text-align: center;
+    padding: 3rem 0;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .page-header h1 {
+    font-size: 2.5rem;
+    color: var(--text-heading);
+    margin-bottom: 1rem;
+  }
+
+  .page-header p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .posts-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
