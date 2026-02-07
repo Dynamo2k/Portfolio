@@ -18,7 +18,6 @@ A production-ready, professional cybersecurity portfolio built with Astro, Tailw
 ### Installation
 
 ```bash
-cd portfolio
 npm install
 ```
 
