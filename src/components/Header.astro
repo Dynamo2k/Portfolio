@@ -1,5 +1,6 @@
 ---
 import { NAV_LINKS, SITE } from '../utils/constants';
+import ThemeSwitcher from './ThemeSwitcher.astro';
 
 const currentPath = Astro.url.pathname;
 ---
@@ -23,6 +24,10 @@ const currentPath = Astro.url.pathname;
       <a href={SITE.resumeFile} download class="btn-resume">
         ↓ Resume
       </a>
+    </div>
+
+    <div class="header-actions">
+      <ThemeSwitcher />
     </div>
 
     <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle menu">
@@ -179,6 +184,12 @@ const currentPath = Astro.url.pathname;
     top: 0;
   }
 
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
   @media (max-width: 768px) {
     .mobile-toggle {
       display: block;
@@ -210,6 +221,13 @@ const currentPath = Astro.url.pathname;
       margin-left: 0;
       margin-top: 0.5rem;
       text-align: center;
+    }
+
+    .header-actions {
+      position: absolute;
+      right: 3.5rem;
+      top: 50%;
+      transform: translateY(-50%);
     }
   }
 </style>

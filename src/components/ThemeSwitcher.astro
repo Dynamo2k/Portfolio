@@ -1,0 +1,153 @@
+---
+---
+
+<div class="theme-switcher">
+  <button class="theme-btn" data-theme="matte" title="Matte Black">
+    <span class="theme-preview matte"></span>
+  </button>
+  <button class="theme-btn" data-theme="jet" title="Jet Black">
+    <span class="theme-preview jet"></span>
+  </button>
+  <button class="theme-btn" data-theme="light" title="Light Mode">
+    <span class="theme-preview light"></span>
+  </button>
+</div>
+
+<style>
+  .theme-switcher {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .theme-btn {
+    background: none;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    padding: 3px;
+    cursor: pointer;
+    transition: all 200ms ease;
+    min-height: auto;
+    min-width: auto;
+  }
+
+  .theme-btn:hover {
+    border-color: var(--accent-primary);
+  }
+
+  .theme-btn.active {
+    border-color: var(--accent-primary);
+    background: var(--bg-elevated);
+  }
+
+  .theme-preview {
+    display: block;
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+  }
+
+  .theme-preview.matte {
+    background: linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 100%);
+    border: 1px solid #00ff9f;
+  }
+
+  .theme-preview.jet {
+    background: linear-gradient(135deg, #000000 0%, #0a0a0a 100%);
+    border: 1px solid #00ff9f;
+  }
+
+  .theme-preview.light {
+    background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+    border: 1px solid #00b386;
+  }
+</style>
+
+<script>
+  function applyTheme(themeName: string) {
+    const themes: Record<string, Record<string, string>> = {
+      matte: {
+        '--bg-primary': '#0d0d0d',
+        '--bg-secondary': '#1a1a1a',
+        '--bg-elevated': '#262626',
+        '--bg-hover': '#303030',
+        '--bg-input': '#1f1f1f',
+        '--accent-primary': '#00ff9f',
+        '--accent-secondary': '#00d4ff',
+        '--text-primary': '#e8e8e8',
+        '--text-secondary': '#a0a0a0',
+        '--text-muted': '#6e6e6e',
+        '--text-heading': '#ffffff',
+        '--border-subtle': '#2a2a2a',
+        '--border-medium': '#3a3a3a',
+        '--border-strong': '#4a4a4a',
+      },
+      jet: {
+        '--bg-primary': '#000000',
+        '--bg-secondary': '#0a0a0a',
+        '--bg-elevated': '#1a1a1a',
+        '--bg-hover': '#242424',
+        '--bg-input': '#111111',
+        '--accent-primary': '#00ff9f',
+        '--accent-secondary': '#00d4ff',
+        '--text-primary': '#ffffff',
+        '--text-secondary': '#b0b0b0',
+        '--text-muted': '#707070',
+        '--text-heading': '#ffffff',
+        '--border-subtle': '#1f1f1f',
+        '--border-medium': '#2f2f2f',
+        '--border-strong': '#3f3f3f',
+      },
+      light: {
+        '--bg-primary': '#ffffff',
+        '--bg-secondary': '#f5f5f5',
+        '--bg-elevated': '#e8e8e8',
+        '--bg-hover': '#d0d0d0',
+        '--bg-input': '#f0f0f0',
+        '--accent-primary': '#00b386',
+        '--accent-secondary': '#0096cc',
+        '--text-primary': '#1a1a1a',
+        '--text-secondary': '#4a4a4a',
+        '--text-muted': '#777777',
+        '--text-heading': '#000000',
+        '--border-subtle': '#e0e0e0',
+        '--border-medium': '#cccccc',
+        '--border-strong': '#aaaaaa',
+      },
+    };
+
+    const theme = themes[themeName];
+    if (!theme) return;
+
+    const root = document.documentElement;
+    Object.entries(theme).forEach(([key, value]) => {
+      root.style.setProperty(key, value);
+    });
+
+    localStorage.setItem('portfolio-theme', themeName);
+  }
+
+  function initTheme() {
+    const saved = localStorage.getItem('portfolio-theme') || 'matte';
+    applyTheme(saved);
+
+    document.querySelectorAll('.theme-btn').forEach(btn => {
+      if (btn.getAttribute('data-theme') === saved) {
+        btn.classList.add('active');
+      }
+    });
+
+    document.querySelectorAll('.theme-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const theme = btn.getAttribute('data-theme');
+        if (theme) {
+          applyTheme(theme);
+          document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        }
+      });
+    });
+  }
+
+  initTheme();
+</script>

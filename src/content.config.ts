@@ -12,6 +12,10 @@ const blog = defineCollection({
     image: z.string().optional(),
     author: z.string().default('Rana Uzair Ahmad'),
     featured: z.boolean().default(false),
+    readTime: z.string().optional(),
+    difficulty: z.string().optional(),
+    imageAlt: z.string().optional(),
+    imagePrompt: z.string().optional(),
   }),
 });
 

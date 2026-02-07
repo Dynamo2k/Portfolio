@@ -321,3 +321,159 @@
     font-weight: 600;
   }
 }
+
+/* ========================================
+   MOBILE RESPONSIVENESS FIXES
+   ======================================== */
+
+/* Base Mobile Styles (320px - 767px) */
+@media (max-width: 767px) {
+  html {
+    font-size: 14px;
+  }
+
+  h1 {
+    font-size: 2rem !important;
+    line-height: 1.2;
+  }
+
+  h2 {
+    font-size: 1.5rem !important;
+  }
+
+  h3 {
+    font-size: 1.25rem !important;
+  }
+
+  p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .container {
+    padding: 1rem !important;
+    max-width: 100%;
+  }
+
+  .hero {
+    padding: 2rem 0 !important;
+  }
+
+  .hero h1 {
+    font-size: 1.75rem !important;
+    margin-bottom: 0.5rem;
+  }
+
+  .headline {
+    font-size: 1.1rem !important;
+    margin-bottom: 0.5rem;
+  }
+
+  .subheadline {
+    font-size: 0.95rem !important;
+    margin-bottom: 1rem;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    padding: 0.75rem !important;
+    font-size: 0.95rem !important;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .post-card img {
+    height: 180px !important;
+  }
+
+  .post-content {
+    padding: 1.25rem !important;
+  }
+
+  .post-card h3 {
+    font-size: 1.1rem !important;
+    margin-bottom: 0.5rem;
+  }
+
+  .description {
+    font-size: 0.9rem !important;
+  }
+
+  .tags {
+    gap: 0.375rem !important;
+  }
+
+  .tag {
+    font-size: 0.8rem !important;
+    padding: 0.2rem 0.5rem !important;
+  }
+
+  .main-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .sidebar {
+    order: -1;
+    position: static !important;
+  }
+
+  .sidebar-section {
+    padding: 1rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .blog-content {
+    padding: 1.5rem 1rem !important;
+  }
+
+  .blog-content pre {
+    padding: 0.75rem !important;
+    font-size: 0.85rem !important;
+    overflow-x: scroll;
+  }
+
+  .blog-content img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .footer {
+    padding: 1.5rem 1rem !important;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+}
+
+/* Tablet Adjustments (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  html {
+    font-size: 15px;
+  }
+
+  .container {
+    padding: 1.5rem;
+  }
+
+  .main-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Prevent Horizontal Scroll */
+body {
+  overflow-x: hidden;
+}
+
+pre {
+  overflow-x: auto;
+  max-width: 100%;
+}

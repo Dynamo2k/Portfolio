@@ -1,9 +1,9 @@
 export const SITE = {
   title: 'Rana Uzair Ahmad',
-  description: 'Cybersecurity professional specializing in SOC operations, penetration testing, and security tool development.',
+  description: 'Cyber Security Engineer specializing in penetration testing, vulnerability assessment, and security tool development.',
   url: 'https://dynamo2k1.github.io',
   author: 'Rana Uzair Ahmad',
-  headline: 'Cybersecurity Engineer | SOC Analyst | Penetration Tester',
+  headline: 'Cyber Security Engineer | Penetration Tester | Security Researcher',
   resumeFile: '/Rana_Uzair_Ahmad_Resume.pdf',
 };
 
@@ -37,21 +37,29 @@ export const STATS = [
 ];
 
 export const SKILLS = {
+  penetration: {
+    title: 'Penetration Testing',
+    items: ['Web Application Security Testing', 'Network Penetration Testing', 'API Security Testing', 'Mobile Application Security', 'Wireless Security Assessment'],
+  },
+  engineering: {
+    title: 'Security Engineering',
+    items: ['Secure Architecture Design', 'Security Tool Development', 'Automation & Scripting', 'CI/CD Security Integration'],
+  },
+  threat: {
+    title: 'Threat Analysis',
+    items: ['Threat Modeling', 'Malware Analysis', 'Vulnerability Research', 'Security Code Review'],
+  },
   offensive: {
-    title: 'Offensive Security',
-    items: ['Penetration Testing', 'Web App Security (OWASP Top 10)', 'Network Penetration Testing', 'Exploit Development', 'Social Engineering', 'Red Team Operations'],
+    title: 'Offensive Tools',
+    items: ['Burp Suite Professional', 'Metasploit Framework', 'Nmap, Nessus, OpenVAS', 'SQLmap, OWASP ZAP', 'Cobalt Strike'],
   },
   defensive: {
     title: 'Defensive Security',
-    items: ['SOC Operations', 'SIEM (Wazuh, Splunk, ELK)', 'Threat Hunting', 'Incident Response', 'Digital Forensics', 'Malware Analysis', 'Network Monitoring'],
-  },
-  tools: {
-    title: 'Security Tools',
-    items: ['Burp Suite', 'Metasploit', 'Nmap', 'Wireshark', 'Volatility', 'Autopsy', 'Ghidra', 'SQLmap', 'John the Ripper', 'Hashcat', 'Zeek', 'Suricata', 'YARA'],
+    items: ['SOC Operations', 'SIEM (Wazuh, Splunk, ELK)', 'Threat Hunting', 'Incident Response', 'Digital Forensics', 'Network Monitoring'],
   },
   programming: {
     title: 'Programming',
-    items: ['Python', 'C/C++', 'Bash/Shell', 'Assembly', 'Rust', 'JavaScript'],
+    items: ['Python (Advanced)', 'Bash/Shell Scripting', 'PowerShell', 'C/C++', 'JavaScript', 'Assembly', 'Rust'],
   },
   frameworks: {
     title: 'Frameworks & Methodologies',
@@ -64,6 +72,18 @@ export const SKILLS = {
 };
 
 export const EXPERIENCE = [
+  {
+    title: 'Cyber Security Engineer',
+    company: 'Current Role',
+    period: 'Recent - Present',
+    description: [
+      'Conduct comprehensive penetration testing and vulnerability assessments',
+      'Develop and maintain security tools for automated testing',
+      'Perform threat modeling and security architecture reviews',
+      'Lead red team operations and security awareness initiatives',
+    ],
+    tech: ['Burp Suite', 'Metasploit', 'Nmap', 'Python', 'Bash', 'PowerShell'],
+  },
   {
     title: 'Penetration Tester',
     company: 'ZeroxInnovation',
