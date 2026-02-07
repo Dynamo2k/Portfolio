@@ -1,0 +1,182 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ResumeDownload from '../components/ResumeDownload.astro';
+import { EXPERIENCE, CERTIFICATIONS, SKILLS } from '../utils/constants';
+---
+
+<BaseLayout title="Resume" description="Resume / CV for Rana Uzair Ahmad - Cybersecurity Engineer, SOC Analyst, Penetration Tester">
+  <section class="pt-24 pb-16">
+    <div class="container-custom max-w-4xl mx-auto">
+      <!-- Header -->
+      <div class="text-center mb-12">
+        <h1 class="text-4xl md:text-5xl font-bold text-text-primary mb-4">Resume / CV</h1>
+        <p class="text-text-secondary mb-6">Last Updated: February 2026</p>
+        <ResumeDownload variant="large" />
+      </div>
+
+      <!-- Professional Summary -->
+      <div class="card mb-8">
+        <h2 class="text-xl font-bold text-text-primary mb-4">Professional Summary</h2>
+        <p class="text-text-secondary leading-relaxed">
+          Cybersecurity professional with 2+ years of experience in SOC operations and
+          penetration testing. Specializing in threat detection, vulnerability assessment,
+          and security tool development. Proven track record in SIEM operations (Wazuh,
+          Splunk), penetration testing, and creating custom security solutions. Top 4%
+          globally on TryHackMe with 34+ open-source security projects.
+        </p>
+      </div>
+
+      <!-- Professional Experience -->
+      <div class="mb-8">
+        <h2 class="text-xl font-bold text-text-primary mb-6">Professional Experience</h2>
+        <div class="space-y-6">
+          {EXPERIENCE.slice(0, 3).map((exp) => (
+            <div class="card">
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
+                <h3 class="text-lg font-semibold text-text-primary">{exp.title}</h3>
+                <span class="text-sm text-accent-primary">{exp.period}</span>
+              </div>
+              <p class="text-accent-secondary text-sm mb-3">{exp.company}</p>
+              <ul class="space-y-1">
+                {exp.description.map((desc) => (
+                  <li class="text-text-secondary text-sm flex items-start gap-2">
+                    <span class="text-accent-primary mt-1 flex-shrink-0" aria-hidden="true">•</span>
+                    <span>{desc}</span>
+                  </li>
+                ))}
+              </ul>
+              {exp.tech.length > 0 && (
+                <div class="flex flex-wrap gap-2 mt-3">
+                  {exp.tech.map((t) => (
+                    <span class="text-xs px-2 py-1 bg-bg-elevated rounded text-text-muted font-mono">{t}</span>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Education -->
+      <div class="card mb-8">
+        <h2 class="text-xl font-bold text-text-primary mb-4">Education</h2>
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
+          <h3 class="text-lg font-semibold text-text-primary">BS Cyber Security</h3>
+          <span class="text-sm text-accent-primary">2023 - Present</span>
+        </div>
+        <p class="text-accent-secondary text-sm mb-2">Air University, Islamabad</p>
+        <ul class="space-y-1">
+          <li class="text-text-secondary text-sm flex items-start gap-2">
+            <span class="text-accent-primary mt-1 flex-shrink-0" aria-hidden="true">•</span>
+            <span>Relevant Coursework: Advanced Cryptography, Network Security, Malware Analysis</span>
+          </li>
+          <li class="text-text-secondary text-sm flex items-start gap-2">
+            <span class="text-accent-primary mt-1 flex-shrink-0" aria-hidden="true">•</span>
+            <span>Member of Cybersecurity Club and CTF team</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Technical Skills -->
+      <div class="card mb-8">
+        <h2 class="text-xl font-bold text-text-primary mb-4">Technical Skills</h2>
+        <div class="space-y-4">
+          <div>
+            <h3 class="text-sm font-semibold text-accent-primary mb-2">Offensive Security</h3>
+            <p class="text-text-secondary text-sm">Penetration Testing, Web App Security, Network Security, Exploit Development</p>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold text-accent-primary mb-2">Defensive Security</h3>
+            <p class="text-text-secondary text-sm">SOC Operations, SIEM (Wazuh, Splunk, ELK), Threat Hunting, Incident Response, Digital Forensics, Malware Analysis</p>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold text-accent-primary mb-2">Tools</h3>
+            <p class="text-text-secondary text-sm">Burp Suite, Metasploit, Nmap, Wireshark, Volatility, Autopsy, Ghidra, IDA Pro, John the Ripper, Hashcat</p>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold text-accent-primary mb-2">Programming</h3>
+            <p class="text-text-secondary text-sm">Python, C/C++, Bash, Assembly, Rust (learning), JavaScript</p>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold text-accent-primary mb-2">Frameworks</h3>
+            <p class="text-text-secondary text-sm">MITRE ATT&CK, OWASP, NIST, CIS Controls</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Certifications -->
+      <div class="card mb-8">
+        <h2 class="text-xl font-bold text-text-primary mb-4">Certifications</h2>
+        <ul class="space-y-2">
+          {CERTIFICATIONS.map((cert) => (
+            <li class="text-text-secondary text-sm flex items-center justify-between">
+              <span>{cert.name}</span>
+              <span class="text-text-muted text-xs">({cert.year})</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Notable Projects -->
+      <div class="card mb-8">
+        <h2 class="text-xl font-bold text-text-primary mb-4">Notable Projects</h2>
+        <ul class="space-y-2">
+          <li class="text-text-secondary text-sm flex items-start gap-2">
+            <span class="text-accent-primary mt-1 flex-shrink-0" aria-hidden="true">•</span>
+            <span><strong class="text-text-primary">NetSnoop</strong> — Advanced packet analyzer (Python, Scapy)</span>
+          </li>
+          <li class="text-text-secondary text-sm flex items-start gap-2">
+            <span class="text-accent-primary mt-1 flex-shrink-0" aria-hidden="true">•</span>
+            <span><strong class="text-text-primary">CortexCLI</strong> — AI-powered security shell (C, AI Integration)</span>
+          </li>
+          <li class="text-text-secondary text-sm flex items-start gap-2">
+            <span class="text-accent-primary mt-1 flex-shrink-0" aria-hidden="true">•</span>
+            <span><strong class="text-text-primary">SSHield</strong> — SSH security toolkit (Python)</span>
+          </li>
+          <li class="text-text-secondary text-sm flex items-start gap-2">
+            <span class="text-accent-primary mt-1 flex-shrink-0" aria-hidden="true">•</span>
+            <span><strong class="text-text-primary">VortexTunnel</strong> — SSH tunneling solution (Python)</span>
+          </li>
+          <li class="text-text-secondary text-sm flex items-start gap-2">
+            <span class="text-accent-primary mt-1 flex-shrink-0" aria-hidden="true">•</span>
+            <span>34+ open-source security projects on GitHub</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Achievements -->
+      <div class="card mb-12">
+        <h2 class="text-xl font-bold text-text-primary mb-4">Achievements</h2>
+        <ul class="space-y-2">
+          <li class="text-text-secondary text-sm flex items-start gap-2">
+            <span class="text-accent-primary mt-1 flex-shrink-0" aria-hidden="true">•</span>
+            <span>Top 4% on TryHackMe (70+ rooms completed)</span>
+          </li>
+          <li class="text-text-secondary text-sm flex items-start gap-2">
+            <span class="text-accent-primary mt-1 flex-shrink-0" aria-hidden="true">•</span>
+            <span>Top 900 on HackTheBox</span>
+          </li>
+          <li class="text-text-secondary text-sm flex items-start gap-2">
+            <span class="text-accent-primary mt-1 flex-shrink-0" aria-hidden="true">•</span>
+            <span>Top 7 on CTFtime.org</span>
+          </li>
+          <li class="text-text-secondary text-sm flex items-start gap-2">
+            <span class="text-accent-primary mt-1 flex-shrink-0" aria-hidden="true">•</span>
+            <span>1st Place — Air University CTF (2024)</span>
+          </li>
+          <li class="text-text-secondary text-sm flex items-start gap-2">
+            <span class="text-accent-primary mt-1 flex-shrink-0" aria-hidden="true">•</span>
+            <span>2nd Place — Islamabad Cyber Challenge</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Download CTA -->
+      <div class="card text-center max-w-lg mx-auto">
+        <h2 class="text-xl font-bold text-text-primary mb-2">Ready to discuss opportunities?</h2>
+        <p class="text-text-secondary text-sm mb-4">PDF format, ATS-friendly. File size: ~200KB</p>
+        <ResumeDownload variant="large" />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

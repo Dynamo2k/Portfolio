@@ -1,0 +1,91 @@
+---
+import { getCategoryColor, getCategoryLabel } from '../utils/helpers';
+
+interface Props {
+  name: string;
+  slug?: string;
+  tagline?: string;
+  description: string;
+  tech: string[];
+  category: string;
+  github: string;
+  stars?: number;
+  forks?: number;
+  image?: string;
+  featured?: boolean;
+}
+
+const { name, slug, tagline, description, tech, category, github, stars, forks, image, featured } = Astro.props;
+---
+
+<article class="card group">
+  {image && (
+    <div class="mb-4 overflow-hidden rounded-lg bg-bg-elevated aspect-video">
+      <img
+        src={image}
+        alt={`${name} project screenshot`}
+        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+        loading="lazy"
+        width="600"
+        height="338"
+      />
+    </div>
+  )}
+  <div class="flex items-start justify-between mb-2">
+    <h3 class="text-xl font-semibold text-text-primary group-hover:text-accent-primary transition-colors">
+      {name}
+    </h3>
+    <span class:list={['tag text-xs', getCategoryColor(category)]}>
+      {getCategoryLabel(category)}
+    </span>
+  </div>
+  {tagline && <p class="text-accent-primary text-sm mb-2">{tagline}</p>}
+  <p class="text-text-secondary text-sm mb-4 line-clamp-3">{description}</p>
+  <div class="flex flex-wrap gap-2 mb-4">
+    {tech.map((t) => (
+      <span class="text-xs px-2 py-1 bg-bg-elevated rounded text-text-muted font-mono">
+        {t}
+      </span>
+    ))}
+  </div>
+  <div class="flex items-center justify-between mt-auto">
+    <div class="flex items-center gap-3 text-text-muted text-sm">
+      {stars !== undefined && stars > 0 && (
+        <span class="flex items-center gap-1" aria-label={`${stars} GitHub stars`}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/>
+          </svg>
+          {stars}
+        </span>
+      )}
+      {forks !== undefined && forks > 0 && (
+        <span class="flex items-center gap-1" aria-label={`${forks} forks`}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="18" r="3"></circle>
+            <circle cx="6" cy="6" r="3"></circle>
+            <circle cx="18" cy="6" r="3"></circle>
+            <path d="M18 9v1a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V9"></path>
+            <path d="M12 12v3"></path>
+          </svg>
+          {forks}
+        </span>
+      )}
+    </div>
+    <div class="flex items-center gap-2">
+      {featured && slug && (
+        <a href={`/projects/${slug}/`} class="text-sm text-accent-primary hover:underline no-underline font-medium">
+          View Details
+        </a>
+      )}
+      <a
+        href={github}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-sm text-text-secondary hover:text-accent-primary no-underline transition-colors"
+        aria-label={`View ${name} on GitHub`}
+      >
+        GitHub →
+      </a>
+    </div>
+  </div>
+</article>

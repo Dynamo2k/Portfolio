@@ -1,0 +1,23 @@
+{
+  "name": "rana-uzair-portfolio",
+  "version": "1.0.0",
+  "description": "Professional cybersecurity portfolio for Rana Uzair Ahmad",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "keywords": ["cybersecurity", "portfolio", "astro", "tailwindcss"],
+  "author": "Rana Uzair Ahmad",
+  "license": "MIT",
+  "dependencies": {
+    "@astrojs/mdx": "^4.3.13",
+    "@astrojs/sitemap": "^3.7.0",
+    "@astrojs/tailwind": "^6.0.2",
+    "astro": "^5.17.1",
+    "tailwindcss": "^3.4.19"
+  }
+}

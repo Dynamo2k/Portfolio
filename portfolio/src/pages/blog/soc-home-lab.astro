@@ -1,0 +1,125 @@
+---
+import BlogLayout from '../../layouts/BlogLayout.astro';
+---
+
+<BlogLayout
+  title="Building a SOC Home Lab with Wazuh and ELK Stack"
+  date="February 1, 2026"
+  readTime="12 min read"
+  category="Technical Guide"
+>
+
+## Introduction
+
+Setting up a SOC (Security Operations Center) home lab is one of the best investments you can make in your cybersecurity career. In this guide, I'll walk you through how I built my personal SIEM environment using Wazuh and the ELK Stack, from hardware selection to creating custom detection rules.
+
+Whether you're preparing for a SOC analyst role or looking to sharpen your threat detection skills, this guide will give you a solid foundation.
+
+## Hardware Requirements
+
+You don't need enterprise-grade hardware to get started. Here's what I used:
+
+- **Server:** Ubuntu 22.04 LTS running on a machine with 16GB RAM, 4-core CPU, 500GB SSD
+- **Agent machines:** A mix of Windows 10, Ubuntu, and Kali Linux VMs
+- **Virtualization:** VirtualBox for managing VMs
+- **Network:** Isolated virtual network for safe testing
+
+The key is having enough RAM to run the ELK Stack comfortably. I'd recommend at least 8GB dedicated to the SIEM server, with 4GB being the absolute minimum.
+
+## Wazuh Configuration
+
+### Installing the Wazuh Manager
+
+Wazuh is an open-source security monitoring platform that provides threat detection, integrity monitoring, and incident response. Here's the installation process:
+
+```bash
+# Install prerequisites
+sudo apt-get update
+sudo apt-get install curl apt-transport-https
+
+# Add Wazuh repository and install
+curl -sO https://packages.wazuh.com/4.x/wazuh-install.sh
+sudo bash ./wazuh-install.sh -a
+```
+
+### Deploying Agents
+
+After the manager is up, deploy agents to your target machines:
+
+```bash
+# On the agent machine
+curl -sO https://packages.wazuh.com/4.x/apt/pool/main/w/wazuh-agent/wazuh-agent_4.7.0-1_amd64.deb
+sudo dpkg -i ./wazuh-agent_4.7.0-1_amd64.deb
+
+# Configure the manager IP
+sudo sed -i 's/MANAGER_IP/192.168.1.100/' /var/ossec/etc/ossec.conf
+sudo systemctl start wazuh-agent
+```
+
+## ELK Stack Setup
+
+The ELK Stack (Elasticsearch, Logstash, Kibana) provides the data storage, processing, and visualization layers for your SOC lab.
+
+### Elasticsearch
+
+```bash
+# Install Elasticsearch
+sudo apt-get install elasticsearch
+
+# Configure for single-node
+echo "discovery.type: single-node" >> /etc/elasticsearch/elasticsearch.yml
+sudo systemctl start elasticsearch
+```
+
+### Kibana
+
+Kibana provides the web interface for visualizing security events and creating dashboards.
+
+```bash
+sudo apt-get install kibana
+sudo systemctl start kibana
+```
+
+## Creating Custom Detection Rules
+
+One of the most valuable exercises is writing custom detection rules. Here's an example rule for detecting brute-force SSH attempts:
+
+```xml
+<rule id="100001" level="10">
+  <if_matched_sid>5710</if_matched_sid>
+  <same_source_ip />
+  <options>alert_by_email</options>
+  <description>SSH brute force attack detected from $(srcip)</description>
+  <group>authentication_failures,</group>
+</rule>
+```
+
+## Dashboard Examples
+
+I created several custom dashboards in Kibana:
+
+1. **Security Overview** — Real-time event counts, severity distribution, top alerting rules
+2. **Authentication Monitor** — Failed login attempts, successful logins, brute-force detection
+3. **Network Activity** — Connection maps, bandwidth usage, anomalous traffic patterns
+4. **Compliance Dashboard** — CIS benchmark compliance status across all agents
+
+## Lessons Learned
+
+1. **Start simple** — Don't try to monitor everything at once. Start with SSH logs and expand
+2. **Document everything** — Keep notes on your configuration changes and rule tuning
+3. **Practice incident response** — Create scenarios and practice your response workflow
+4. **Tune, tune, tune** — Expect lots of false positives initially; tuning is an ongoing process
+5. **Back up your configurations** — Version control your detection rules and configurations
+
+## Resources and Recommendations
+
+- [Wazuh Documentation](https://documentation.wazuh.com)
+- [Elastic Security Guide](https://www.elastic.co/guide/en/security/current)
+- [MITRE ATT&CK Framework](https://attack.mitre.org)
+- [Sigma Rules Repository](https://github.com/SigmaHQ/sigma)
+
+## Conclusion
+
+Building a SOC home lab transformed my understanding of security monitoring. The hands-on experience with Wazuh and ELK Stack directly translated to my professional role as a SOC Analyst at the National Center of Cyber Security. I highly recommend this approach for anyone serious about a career in defensive security.
+
+</BlogLayout>
