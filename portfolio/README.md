@@ -98,6 +98,15 @@ Write your blog post using standard Markdown syntax.
 1. Replace `public/Rana_Uzair_Ahmad_Resume.pdf` with the updated PDF
 2. The download button will automatically serve the new file
 
+## How to Set Up the Contact Form
+
+1. Create a free account at [Formspree](https://formspree.io) or [Web3Forms](https://web3forms.com)
+2. Create a new form and copy the form ID
+3. Update the `action` URL in `src/components/ContactForm.astro` with your form ID:
+   ```
+   action="https://formspree.io/f/YOUR_FORM_ID"
+   ```
+
 ## How to Deploy
 
 ### Vercel (Recommended)
