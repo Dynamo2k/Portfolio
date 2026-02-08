@@ -4,9 +4,8 @@ description: "Step-by-step guide to building your own penetration testing and re
 date: "2025-11-15"
 category: "Tutorial"
 tags: ["Red Team", "Home Lab", "Pentesting", "Practice"]
-image: "/images/blog/red-team-lab.webp"
+image: "/images/blog/red-team-lab.png"
 imageAlt: "Red team cybersecurity lab setup with virtual machines"
-imagePrompt: "Red team cybersecurity lab setup, virtual machines network topology, attack and defense infrastructure, matte black background, neon green Kali Linux terminal, cyan network connections, server racks illustration, modern tech aesthetic"
 author: "Rana Uzair Ahmad"
 readTime: "14 min"
 difficulty: "Beginner"
