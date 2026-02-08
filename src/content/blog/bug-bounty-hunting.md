@@ -4,7 +4,7 @@ description: "Complete guide to starting your bug bounty hunting journey, from c
 date: "2025-08-30"
 category: "Bug Bounty"
 tags: ["Bug Bounty", "Web Security", "Hacking", "Recon"]
-image: "/images/blog/bug-bounty-hunting.webp"
+image: "/images/blog/bug-bounty-hunting.png"
 imageAlt: "Bug bounty hunting platform interface with vulnerability reports"
 imagePrompt: "Bug bounty hunting platform interface, vulnerability reports, security researcher at work, matte black background, neon green code snippets, cyan reward badges, hacker terminal, web application security, modern cybersecurity illustration"
 author: "Rana Uzair Ahmad"
