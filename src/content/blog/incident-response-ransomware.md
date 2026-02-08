@@ -4,7 +4,7 @@ description: "Step-by-step incident response playbook for handling ransomware at
 date: "2025-06-15"
 category: "Incident Response"
 tags: ["Incident Response", "Ransomware", "Forensics", "IR"]
-image: "/images/blog/incident-response-ransomware.webp"
+image: "/images/blog/incident-response-ransomware.png"
 imageAlt: "Incident response ransomware attack emergency response"
 imagePrompt: "Incident response ransomware attack, emergency response team, forensic analysis screens, matte black background, neon red ransomware alert, cyan defensive actions, digital forensics investigation, cybersecurity crisis management"
 author: "Rana Uzair Ahmad"
