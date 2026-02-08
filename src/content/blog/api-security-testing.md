@@ -6,7 +6,6 @@ category: "Security Testing"
 tags: ["API Security", "REST", "GraphQL", "Authentication", "Authorization"]
 image: "/images/blog/api-security-testing.png"
 imageAlt: "API security testing with REST endpoints and authentication tokens"
-imagePrompt: "API security testing illustration, REST endpoints diagram, authentication tokens, matte black background, neon cyan API connections, green security shields, JSON data flow, abstract network architecture, cybersecurity art"
 author: "Rana Uzair Ahmad"
 readTime: "12 min"
 difficulty: "Intermediate"
