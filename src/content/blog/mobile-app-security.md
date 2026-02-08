@@ -4,7 +4,7 @@ description: "Comprehensive guide to mobile application security testing for And
 date: "2025-06-28"
 category: "Mobile Security"
 tags: ["Android", "iOS", "Mobile App Security", "Pentesting"]
-image: "/images/blog/mobile-app-security.webp"
+image: "/images/blog/mobile-app-security.png"
 imageAlt: "Mobile application security testing for Android and iOS"
 imagePrompt: "Mobile application security testing, Android and iOS smartphones, code analysis interface, matte black background, neon green app decompilation, cyan security alerts, Frida hooking illustration, mobile pentesting, cybersecurity art"
 author: "Rana Uzair Ahmad"
