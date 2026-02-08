@@ -6,7 +6,6 @@ category: "Windows Security"
 tags: ["Active Directory", "Red Team", "Blue Team", "Windows"]
 image: "/images/blog/active-directory-attacks.png"
 imageAlt: "Active Directory attack paths with BloodHound visualization"
-imagePrompt: "Active Directory network attack paths, BloodHound graph visualization, domain controller, matte black background, neon green attack vectors, cyan defensive shields, Kerberos tickets, Windows security illustration, enterprise network"
 author: "Rana Uzair Ahmad"
 readTime: "18 min"
 difficulty: "Advanced"
