@@ -17,7 +17,7 @@ export const themes = {
       'border-medium': '#3a3a3a',
       'border-strong': '#4a4a4a',
     }
-  }
+  },
 };
 
 export type ThemeName = keyof typeof themes;
