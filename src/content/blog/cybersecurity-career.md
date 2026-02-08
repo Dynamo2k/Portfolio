@@ -4,7 +4,7 @@ description: "Personal guide to building a successful cybersecurity career, cove
 date: "2025-05-15"
 category: "Career Guidance"
 tags: ["Career", "Cybersecurity", "Learning Path", "Certifications"]
-image: "/images/blog/cybersecurity-career.webp"
+image: "/images/blog/cybersecurity-career.png"
 imageAlt: "Cybersecurity career path journey with certification milestones"
 imagePrompt: "Cybersecurity career path journey, learning roadmap, certifications badges, professional growth, matte black background, neon cyan career milestones, green achievement icons, from beginner to expert, career guidance illustration"
 author: "Rana Uzair Ahmad"
