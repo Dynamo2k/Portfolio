@@ -4,9 +4,8 @@ description: "Guide to secure code review methodology, common vulnerability patt
 date: "2025-05-30"
 category: "Application Security"
 tags: ["Secure Coding", "Code Review", "SAST", "AppSec"]
-image: "/images/blog/secure-code-review.webp"
+image: "/images/blog/secure-code-review.png"
 imageAlt: "Secure code review with vulnerability detection highlights"
-imagePrompt: "Secure code review, source code analysis, vulnerability detection, matte black background, neon green code lines, cyan security highlights, bug detection, SAST tools interface, application security, developer security illustration"
 author: "Rana Uzair Ahmad"
 readTime: "15 min"
 difficulty: "Advanced"
