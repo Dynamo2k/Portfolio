@@ -6,7 +6,6 @@ category: "Cloud Security"
 tags: ["AWS", "Azure", "GCP", "Cloud Native", "DevSecOps"]
 image: "/images/blog/cloud-security.png"
 imageAlt: "Cloud security architecture across AWS, Azure, and GCP"
-imagePrompt: "Cloud security architecture, AWS Azure GCP logos, multi-cloud infrastructure, matte black background, neon cyan cloud icons, green security shields, data encryption, IAM access controls, modern cloud computing illustration"
 author: "Rana Uzair Ahmad"
 readTime: "14 min"
 difficulty: "Intermediate"
