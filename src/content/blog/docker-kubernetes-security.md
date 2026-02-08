@@ -4,7 +4,7 @@ description: "Advanced guide to securing Docker containers and Kubernetes cluste
 date: "2025-07-30"
 category: "DevSecOps"
 tags: ["Docker", "Kubernetes", "Container Security", "DevSecOps"]
-image: "/images/blog/docker-kubernetes-security.webp"
+image: "/images/blog/docker-kubernetes-security.png"
 imageAlt: "Docker and Kubernetes container security architecture"
 imagePrompt: "Docker and Kubernetes container security, orchestration architecture, security shields protecting containers, matte black background, neon cyan container pods, green security policies, cloud native security, DevSecOps illustration"
 author: "Rana Uzair Ahmad"
