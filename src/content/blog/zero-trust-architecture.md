@@ -4,9 +4,8 @@ description: "A comprehensive guide to understanding and implementing Zero Trust
 date: "2025-12-15"
 category: "Security Architecture"
 tags: ["Zero Trust", "Network Security", "Enterprise Security", "Architecture"]
-image: "/images/blog/zero-trust-architecture.webp"
+image: "/images/blog/zero-trust-architecture.png"
 imageAlt: "Zero Trust Architecture network diagram with verification shields"
-imagePrompt: "Zero trust architecture network diagram, matte black background, neon cyan and green connections, identity verification shields, micro-segmentation zones, continuous monitoring sensors, modern digital security illustration"
 author: "Rana Uzair Ahmad"
 readTime: "12 min"
 difficulty: "Intermediate"
