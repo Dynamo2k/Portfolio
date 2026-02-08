@@ -4,9 +4,8 @@ description: "Practical guide to deploying SIEM solutions using Wazuh and Splunk
 date: "2025-07-15"
 category: "SOC / SIEM"
 tags: ["SIEM", "Wazuh", "Splunk", "Threat Detection", "SOC"]
-image: "/images/blog/siem-deployment.webp"
+image: "/images/blog/siem-deployment.png"
 imageAlt: "SIEM security operations center with Wazuh and Splunk dashboards"
-imagePrompt: "SIEM security operations center, Wazuh and Splunk dashboards, threat detection alerts, matte black background, neon green log entries, cyan security graphs, SOC analyst monitors, real-time threat intelligence, cybersecurity monitoring"
 author: "Rana Uzair Ahmad"
 readTime: "14 min"
 difficulty: "Intermediate"
