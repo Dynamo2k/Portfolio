@@ -4,9 +4,8 @@ description: "Practical guide to network security monitoring using Wireshark and
 date: "2025-08-15"
 category: "Network Security"
 tags: ["Network Monitoring", "Wireshark", "Zeek", "Traffic Analysis"]
-image: "/images/blog/network-security-monitoring.webp"
+image: "/images/blog/network-security-monitoring.png"
 imageAlt: "Network traffic analysis with Wireshark packet capture"
-imagePrompt: "Network traffic analysis, Wireshark packet capture interface, network topology diagram, matte black background, neon green data packets, cyan network nodes, protocol analysis, cybersecurity monitoring illustration, digital forensics"
 author: "Rana Uzair Ahmad"
 readTime: "12 min"
 difficulty: "Intermediate"
